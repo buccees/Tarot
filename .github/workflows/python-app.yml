@@ -87,7 +87,7 @@ jobs:
           ANDROID_SDK_ROOT: /home/runner/.buildozer/android/platform/android-sdk
           ANDROID_NDK_HOME: /home/runner/.buildozer/android/platform/android-ndk-r25b
         run: |
-          buildozer android debug --verbose
+          buildozer -V --debug android debug
 
       - name: Find and list APK
         if: always()
