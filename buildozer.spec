@@ -11,7 +11,7 @@ icon.filename = images/AppIcons/playstore.png
 orientation = portrait
 
 [buildozer]
-log_level = 2
+log_level = 1
 android.skip_update = True
 android.sdk_path = ~/.buildozer/android/platform/android-sdk
 android.ndk_path = ~/.buildozer/android/platform/android-ndk-r25b
@@ -24,4 +24,4 @@ android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 android.extract_native_libs = False
 android.accept_sdk_license = True
 android.orientation = portrait
-p4a.branch = develop
+p4a.branch = master
