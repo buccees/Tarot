@@ -88,6 +88,16 @@ jobs:
         run: |
           rm -rf .buildozer
 
+      - name: Install Android NDK r25b
+        run: |
+          mkdir -p ~/.buildozer/android/platform
+          cd ~/.buildozer/android/platform
+          if [ ! -d "android-ndk-r25b" ]; then
+            curl -L -o ndk.zip https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+            unzip -q ndk.zip
+            rm ndk.zip
+          fi
+
       - name: Build with buildozer
         env:
           JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64
