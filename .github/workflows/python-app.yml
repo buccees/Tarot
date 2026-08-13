@@ -98,6 +98,16 @@ jobs:
             rm ndk.zip
           fi
 
+      - name: Force Correct NDK r25b Setup
+        run: |
+          rm -rf ~/.buildozer/android/platform/android-ndk*
+          mkdir -p ~/.buildozer/android/platform
+          cd ~/.buildozer/android/platform
+          curl -L -o ndk.zip https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+          unzip -q ndk.zip
+          mv android-ndk-r25b android-ndk-r25b
+          rm ndk.zip
+
       - name: Build with buildozer
         env:
           JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64
