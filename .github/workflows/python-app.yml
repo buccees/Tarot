@@ -76,6 +76,14 @@ jobs:
           echo "=== Testing sdkmanager ==="
           ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --version
 
+      - name: Download and extract Android NDK
+        run: |
+          mkdir -p ~/.buildozer/android/platform
+          cd ~/.buildozer/android/platform
+          curl -L -o android-ndk-r25b-linux.zip https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+          unzip -q android-ndk-r25b-linux.zip
+          rm android-ndk-r25b-linux.zip
+
       - name: Clean buildozer project directory
         run: |
           rm -rf .buildozer
