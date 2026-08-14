@@ -44,10 +44,23 @@ jobs:
 
       - name: Map Android SDK for Buildozer
         run: |
-          # Buildozer looks for the SDK inside its own local directory layout.
-          # We link the runner's pre-configured Android SDK to satisfy it.
-          mkdir -p ~/.buildozer/android/platform
-          ln -s $ANDROID_SDK_ROOT ~/.buildozer/android/platform/android-sdk
+          # Create the exact legacy folder structure Buildozer insists on scanning
+          mkdir -p ~/.buildozer/android/platform/android-sdk/tools/bin
+          
+          # Point Buildozer's expected paths to the runner's real SDK location
+          ln -sf /usr/local/lib/android/sdk/platforms ~/.buildozer/android/platform/android-sdk/platforms
+          ln -sf /usr/local/lib/android/sdk/platform-tools ~/.buildozer/android/platform/android-sdk/platform-tools
+          ln -sf /usr/local/lib/android/sdk/build-tools ~/.buildozer/android/platform/android-sdk/build-tools
+          
+          # Symlink sdkmanager from the runner's active cmdline-tools directory into Buildozer's expected path
+          # (Using the 16.0 or latest path found on the runner)
+          CMD_TOOL_BIN=$(find /usr/local/lib/android/sdk/cmdline-tools -name "sdkmanager" | head -n 1)
+          if [ -n "$CMD_TOOL_BIN" ]; then
+            ln -sf "$CMD_TOOL_BIN" ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager
+          fi
+          
+          # Accept licenses so sdkmanager doesn't block execution
+          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
       - name: Optimize images
         run: |
