@@ -8,20 +8,65 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          command: buildozer -v android debug
+          python-version: '3.10'
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            git zip unzip autoconf libtool pkg-config \
+            zlib1g-dev libncurses5-dev libncursesw5-dev \
+            libtool wget curl lld imagemagick pngquant \
+            python3-dev python3-pip python3-setuptools python3-wheel
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install --upgrade buildozer cython
+
+      - name: Setup Android SDK and Build-Tools explicitly
+        run: |
+          # Accept SDK licenses first
+          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          
+          # Install the exact packages Buildozer looks for
+          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+          
+          # Link the SDK into the structure Buildozer expects locally
+          mkdir -p ~/.buildozer/android/platform/android-sdk
+          ln -s /usr/local/lib/android/sdk/platforms ~/.buildozer/android/platform/android-sdk/platforms
+          ln -s /usr/local/lib/android/sdk/platform-tools ~/.buildozer/android/platform/android-sdk/platform-tools
+          ln -s /usr/local/lib/android/sdk/build-tools ~/.buildozer/android/platform/android-sdk/build-tools
+
+      - name: Optimize images
+        run: |
+          find images/rider-waite-tarot -type f -name "*.png" -exec convert {} -resize 512x896 {} \; || true
+          find images -type f -name "*.png" -exec pngquant --force --output {} {} \; || true
+
+      - name: Build with buildozer
+        env:
+          JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64
+        run: |
+          buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: tarot-apk
-          path: ${{ steps.buildozer.outputs.filename }}
+          path: bin/*.apk
           retention-days: 30
