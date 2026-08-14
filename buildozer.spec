@@ -11,10 +11,10 @@ icon.filename = images/AppIcons/playstore.png
 orientation = portrait
 
 [buildozer]
-log_level = 1
-android.skip_update = True
-android.sdk_path = ~/.buildozer/android/platform/android-sdk
-android.ndk_path = ~/.buildozer/android/platform/android-ndk-r25b
+log_level = 2
+android.skip_update = False
+android.sdk_path = 
+android.ndk_path = 
 android.ndk = 25b
 android.api = 33
 android.minapi = 21
