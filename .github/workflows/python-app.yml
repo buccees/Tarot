@@ -44,7 +44,7 @@ jobs:
           find images/rider-waite-tarot -type f -name "*.png" -exec convert {} -resize 512x896 {} \; || true
           find images -type f -name "*.png" -exec pngquant --force --output {} {} \; || true
 
-          - name: Clear corrupted buildozer cache
+      - name: Clear corrupted buildozer cache
         run: |
           rm -rf ~/.buildozer
           rm -rf .buildozer
