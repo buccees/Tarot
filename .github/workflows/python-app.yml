@@ -39,6 +39,12 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install --upgrade buildozer cython
 
+          - name: Pre-build fix for Python 3.14 venv pip compatibility
+        run: |
+          mkdir -p ~/.buildozer/android/platform/python-for-android
+          # Patch python-for-android's virtual environment creation command to avoid upgrading pip inside modern virtual environments where it throws an ImportError.
+          find ~/.buildozer/android/platform/python-for-android -type f -name "build.py" -exec sed -i 's/pip install -U pip/pip install --upgrade --ignore-installed pip/g' {} + || true
+
       - name: Optimize images
         run: |
           find images/rider-waite-tarot -type f -name "*.png" -exec convert {} -resize 512x896 {} \; || true
