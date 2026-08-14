@@ -24,18 +24,31 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             unzip zip \
+            build-essential \
             libffi-dev libssl-dev \
             zlib1g-dev libbz2-dev \
             libreadline-dev libsqlite3-dev \
-            llvm libnss3-dev
+            llvm libnss3-dev libncurses5-dev \
+            xz-utils tk-dev libxml2-dev libxmlsec1-dev \
+            liblzma-dev gradle
 
-      - name: Install Android SDK and NDK
+      - name: Set up Android SDK and NDK
         run: |
+          # Install commandlinetools
           wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
           unzip commandlinetools-linux-*.zip -d $ANDROID_HOME
           export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+          export ANDROID_SDK_ROOT=$ANDROID_HOME
+
+          # Accept licenses
           yes | sdkmanager --licenses
+
+          # Install SDK/NDK
           sdkmanager "platform-tools" "platforms;android-33" "ndk;25.2.9519653"
+
+          # Verify
+          sdkmanager --list
+          ndk-build --version
 
       - name: Install Buildozer
         run: |
@@ -43,7 +56,9 @@ jobs:
 
       - name: Build APK
         run: |
+          cd $GITHUB_WORKSPACE
           buildozer -v android debug
         env:
-          ANDROIDNDK: /home/runner/.buildozer/android/platform/android-ndk-r25b
-          ANDROIDSDK: /home/runner/.buildozer/android/platform/android-sdk
+          ANDROIDNDK: ${{ env.ANDROID_HOME }}/ndk/25.2.9519653
+          ANDROIDSDK: ${{ env.ANDROID_HOME }}
+          _JAVA_OPTIONS: "-Xmx2048m -Dfile.encoding=UTF-8"
