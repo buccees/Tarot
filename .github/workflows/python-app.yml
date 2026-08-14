@@ -44,10 +44,14 @@ jobs:
           find images/rider-waite-tarot -type f -name "*.png" -exec convert {} -resize 512x896 {} \; || true
           find images -type f -name "*.png" -exec pngquant --force --output {} {} \; || true
 
-      - name: Clear corrupted buildozer cache
+      - name: Pre-install Android SDK components & accept licenses
         run: |
-          rm -rf ~/.buildozer
-          rm -rf .buildozer
+          ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
+          mkdir -p $ANDROID_HOME
+          
+          # Automatically accept sdk licenses and force install build-tools containing aidl
+          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses || true
+          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "build-tools;33.0.2" "platforms;android-33"
 
       - name: Build with buildozer
         env:
