@@ -25,6 +25,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -39,19 +42,12 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install --upgrade buildozer cython
 
-      - name: Setup Android SDK and Build-Tools explicitly
+      - name: Map Android SDK for Buildozer
         run: |
-          # Accept SDK licenses first
-          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          
-          # Install the exact packages Buildozer looks for
-          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
-          
-          # Link the SDK into the structure Buildozer expects locally
-          mkdir -p ~/.buildozer/android/platform/android-sdk
-          ln -s /usr/local/lib/android/sdk/platforms ~/.buildozer/android/platform/android-sdk/platforms
-          ln -s /usr/local/lib/android/sdk/platform-tools ~/.buildozer/android/platform/android-sdk/platform-tools
-          ln -s /usr/local/lib/android/sdk/build-tools ~/.buildozer/android/platform/android-sdk/build-tools
+          # Buildozer looks for the SDK inside its own local directory layout.
+          # We link the runner's pre-configured Android SDK to satisfy it.
+          mkdir -p ~/.buildozer/android/platform
+          ln -s $ANDROID_SDK_ROOT ~/.buildozer/android/platform/android-sdk
 
       - name: Optimize images
         run: |
