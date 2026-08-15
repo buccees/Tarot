@@ -34,7 +34,7 @@ jobs:
             libffi-dev libssl-dev zlib1g-dev \
             libxml2-dev libxslt1-dev libjpeg-dev
           pip install --upgrade pip
-          pip install --upgrade buildozerCython==0.29.33
+          pip install --upgrade buildozer cython==0.29.33
 
       - name: Build APK
         run: |
