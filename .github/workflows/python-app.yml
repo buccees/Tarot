@@ -49,6 +49,16 @@ jobs:
           rm -rf ~/.android
           rm -rf ~/.gradle
 
+      - name: Install Android build-tools
+        run: |
+          mkdir -p ~/.buildozer/android/platform/android-sdk
+          cd ~/.buildozer/android/platform/android-sdk
+          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          unzip -q commandlinetools-linux-11076708_latest.zip
+          mkdir -p cmdline-tools/latest
+          mv cmdline-tools/* cmdline-tools/latest/ 2>/dev/null || true
+          yes | cmdline-tools/latest/bin/sdkmanager --sdk_root=. "build-tools;33.0.2" "platforms;android-33" "platform-tools"
+
       - name: Build APK
         run: |
           buildozer -v android debug 2>&1 | tee build.log
