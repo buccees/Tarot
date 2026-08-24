@@ -1,6 +1,5 @@
 [app]
 
-# (App metadata)
 title = Custom Art Tarot
 package.name = pictarotapp
 package.domain = org.example
@@ -11,12 +10,10 @@ fullscreen = 0
 orientation = portrait
 icon.filename = images/AppIcons/playstore.png
 
-# (App requirements - pinned versions for stability)
-requirements = python3,kivy==2.1.0,sdl2==2.0.0,sdl2_image==2.0.5,sdl2_mixer==2.0.4,sdl2_ttf==2.0.15,pyjnius==1.4.0,android,setuptools,six,libffi,openssl,sqlite3,hostpython3
+requirements = python3,kivy==2.2.0,sdl2==2.0.0,sdl2_image,sdl2_mixer,sdl2_ttf,pyjnius==1.4.0,android,setuptools,six,libffi,openssl,sqlite3,hostpython3
 
 [buildozer]
 
-# (Buildozer settings)
 log_level = 2
 android.skip_update = False
 android.sdk_path =
@@ -29,4 +26,4 @@ android.archs = arm64-v8a,armeabi-v7a
 android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 android.extract_native_libs = False
 android.accept_sdk_license = True
-p4a.branch = develop
+p4a.branch = 2026.05.09
