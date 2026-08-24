@@ -10,7 +10,7 @@ fullscreen = 0
 orientation = portrait
 icon.filename = images/AppIcons/playstore.png
 
-requirements = python3,kivy==2.2.0,sdl2==2.0.0,sdl2_image,sdl2_mixer,sdl2_ttf,pyjnius==1.4.0,android,setuptools,six,libffi,openssl,sqlite3,hostpython3
+requirements = python3,kivy==2.2.0,sdl2==2.28.4,sdl2_image,sdl2_mixer,sdl2_ttf,pyjnius==1.4.0,android,setuptools,six,libffi,openssl,sqlite3,hostpython3
 
 [buildozer]
 
@@ -18,7 +18,7 @@ log_level = 2
 android.skip_update = False
 android.sdk_path =
 android.ndk_path =
-android.ndk = 26c
+android.ndk = 28c
 android.api = 33
 android.minapi = 24
 android.build_tools = 33.0.2
