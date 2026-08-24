@@ -60,14 +60,52 @@ jobs:
         run: |
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
-          yes | buildozer -v android debug || true
+          buildozer -v android debug 2>&1 || true
           sleep 10
           SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
           if [ -d "$SDK_DIR/cmdline-tools/latest/bin" ]; then
-            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" --licenses || true
-            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" "build-tools;33.0.2" "platform-tools" "platforms;android-33" || true
+            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" --licenses 2>&1 || true
+            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" "build-tools;33.0.2" "platform-tools" "platforms;android-33" 2>&1 || true
           fi
 
       - name: Build APK with retries
-        run](#)
-
+        run: |
+          set +e
+          MAX_ATTEMPTS=3
+          for i in $(seq 1 $MAX_ATTEMPTS); do
+            echo "========================================="
+            echo "Build attempt $i of $MAX_ATTEMPTS"
+            echo "========================================="
+            buildozer -v android debug
+            BUILD_EXIT=$?
+            if [ $BUILD_EXIT -eq 0 ]; then
+              echo "Build succeeded!"
+              exit 0
+            fi
+            if [ $i -lt $MAX_ATTEMPTS ]; then
+              echo "Build failed with exit code $BUILD_EXIT, cleaning cache and retrying..."
+              rm -rf .buildozer/android/platform/build-*/dists/* 2>/dev/null || true
+              rm -rf .buildozer/android/platform/build-*/packages/* 2>/dev/null || true
+              sleep 15
+            fi
+          done
+          echo "All build attempts failed"
+          exit 1
+
+      - name: Upload APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pictarotapp-debug-apk
+          path: bin/*.apk
+          if-no-files-found: warn
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: buildozer-logs
+          path: |
+            .buildozer/
+            .buildozer/android/platform/build-*/build.log
+          if-no-files-found: ignore
