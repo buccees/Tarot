@@ -61,12 +61,6 @@ jobs:
           path: ~/.buildozer
           key: buildozer-global-${{ hashFiles('buildozer.spec') }}-v2
 
-      - name: Cache buildozer project build directory
-        uses: actions/cache@v4
-        with:
-          path: .buildozer
-          key: buildozer-project-${{ hashFiles('buildozer.spec') }}-v2
-
       # buildozer will download the SDK on first run if it isn't cached yet.
       # We accept licenses explicitly afterward so CI never hits an
       # interactive y/N prompt that silently fails the build.
