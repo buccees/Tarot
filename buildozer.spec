@@ -10,7 +10,7 @@ fullscreen = 0
 orientation = portrait
 icon.filename = images/AppIcons/playstore.png
 
-requirements = python3,kivy==2.2.0,sdl2==2.28.4,sdl2_image,sdl2_mixer,sdl2_ttf,pyjnius==1.4.0,android,setuptools,six,libffi,openssl,sqlite3,hostpython3
+requirements = hostpython3, libffi, openssl, sdl2_image, sdl2_mixer, sdl2_ttf, sqlite3, python3, sdl2, setuptools, six, pyjnius, android, kivy
 
 [buildozer]
 
