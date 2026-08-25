@@ -26,7 +26,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Force Java 17 for all Android tooling.
       - name: Force Java 17 for Android SDK tools
         run: |
           echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
@@ -47,29 +46,23 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install buildozer cython==0.29.36
 
-      # Cache only the global Buildozer directory.
-      #
-      # IMPORTANT:
-      # We intentionally do NOT cache .buildozer because it contains
-      # project-specific python-for-android build environments and
-      # temporary virtual environments that can become corrupted/stale.
+      # Cache only global SDK/NDK downloads.
+      # Do NOT cache the project .buildozer directory.
       - name: Cache buildozer global directory
         uses: actions/cache@v4
         with:
           path: ~/.buildozer
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }}-v3
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }}-v4
 
-      # Always start the project build directory clean.
+      # Make absolutely sure no stale project build survives.
       - name: Clean project build directory
         run: |
           rm -rf .buildozer
 
-      # Buildozer will download the SDK/NDK on first run if needed.
-      # Accept Android SDK licenses non-interactively.
-      - name: Pre-fetch Android SDK and accept licenses
+      # Let Buildozer/p4a download the SDK/NDK as needed.
+      # Do NOT run a hidden debug build here.
+      - name: Prepare Android SDK licenses
         run: |
-          yes | buildozer android debug || true
-
           SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
 
           if [ -d "$SDK_DIR/cmdline-tools/latest/bin" ]; then
@@ -80,6 +73,22 @@ jobs:
               "platform-tools" \
               "platforms;android-33" || true
           fi
+
+      - name: Show build configuration
+        run: |
+          echo "=== Python ==="
+          python --version
+          python -m pip --version
+
+          echo "=== Java ==="
+          java -version
+          javac -version
+
+          echo "=== Buildozer ==="
+          buildozer --version
+
+          echo "=== Buildozer spec ==="
+          grep -E '^(requirements|p4a.branch|android.ndk|android.api|android.minapi|android.build_tools|android.archs)' buildozer.spec
 
       - name: Build with buildozer
         run: |
