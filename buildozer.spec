@@ -17,7 +17,8 @@ icon.filename = images/AppIcons/playstore.png
 # IMPORTANT:
 # Pin the Python used inside the Android build.
 # The host GitHub runner can remain on Python 3.11.
-requirements = python3==3.12.10,kivy,requests
+requirements = python3==3.12.10,hostpython3==3.12.10,kivy,requests
+
 
 [buildozer]
 
