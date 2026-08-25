@@ -7,6 +7,7 @@ from kivy.core.window import Window
 import os
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.clock import Clock
 from kivy.uix.floatlayout import FloatLayout
 from kivy.logger import Logger
@@ -30,6 +31,19 @@ for suit in suits:
         tarot_cards.append(f"{rank} of {suit}")
 tarot_cards.extend(major_arcana)
 
+# Position names for each spread type, in draw order.
+# Extend/rename freely -- these just label what each card in the
+# spread represents so the bottom log panel can show it.
+SPREAD_POSITIONS = {
+    "Single Card": ["Focus"],
+    "Three-Card": ["Past", "Present", "Future"],
+    "Five-Card": ["Situation", "Challenge", "Advice", "Underlying Cause", "Likely Outcome"],
+    "Celtic Cross": [
+        "Present", "Challenge", "Foundation", "Recent Past", "Possible Outcome",
+        "Near Future", "Your Approach", "External Influences", "Hopes & Fears", "Final Outcome",
+    ],
+}
+
 
 class TarotCardImage(ButtonBehavior, Image):
     """A tarot card that acts as a button with immediate rotation"""
@@ -38,46 +52,37 @@ class TarotCardImage(ButtonBehavior, Image):
         self.card_name = card_name
         self.orientation = orientation
         self.is_revealed = False
-        
+        self._rotate_instruction = None
+
         # Apply rotation immediately if reversed
         if orientation == "Reversed":
             self._apply_rotation()
-    
+
     def _apply_rotation(self):
-        """Apply 180-degree rotation immediately"""
+        """Set up the 180-degree rotation once, then just keep its origin in sync."""
         self.canvas.before.clear()
         self.canvas.after.clear()
-        
+
         with self.canvas.before:
             PushMatrix()
-            # Rotate around center
-            Rotate(angle=180, origin=(self.center_x, self.center_y))
-            
+            self._rotate_instruction = Rotate(angle=180, origin=self.center)
+
         with self.canvas.after:
             PopMatrix()
-            
-        # Rebind to update rotation when position changes
-        self.bind(pos=self._update_rotation, size=self._update_rotation)
-    
-    def _update_rotation(self, *args):
-        """Update rotation center when position/size changes"""
-        if self.orientation == "Reversed":
-            self.canvas.before.clear()
-            self.canvas.after.clear()
-            
-            with self.canvas.before:
-                PushMatrix()
-                Rotate(angle=180, origin=(self.center_x, self.center_y))
-                
-            with self.canvas.after:
-                PopMatrix()
+
+        self.bind(pos=self._update_rotation_origin, size=self._update_rotation_origin)
+
+    def _update_rotation_origin(self, *args):
+        """Keep the rotation centered on the widget without rebuilding the canvas."""
+        if self._rotate_instruction is not None:
+            self._rotate_instruction.origin = self.center
 
 
 class CardButton(ButtonBehavior, FloatLayout):
     """A card-shaped button for the menu"""
     def __init__(self, card_image_path, title_text, subtitle_text, **kwargs):
         super().__init__(**kwargs)
-        
+
         # Card background image
         card_bg = Image(
             source=card_image_path,
@@ -87,13 +92,13 @@ class CardButton(ButtonBehavior, FloatLayout):
             pos_hint={'center_x': 0.5, 'center_y': 0.5}
         )
         self.add_widget(card_bg)
-        
+
         # Semi-transparent overlay for text readability
         overlay = FloatLayout(
             size_hint=(1, 1),
             pos_hint={'center_x': 0.5, 'center_y': 0.5}
         )
-        
+
         # Title
         title = Label(
             text=title_text,
@@ -108,7 +113,7 @@ class CardButton(ButtonBehavior, FloatLayout):
             valign='middle'
         )
         title.bind(size=title.setter('text_size'))
-        
+
         # Subtitle
         subtitle = Label(
             text=subtitle_text,
@@ -122,7 +127,7 @@ class CardButton(ButtonBehavior, FloatLayout):
             valign='middle'
         )
         subtitle.bind(size=subtitle.setter('text_size'))
-        
+
         overlay.add_widget(title)
         overlay.add_widget(subtitle)
         self.add_widget(overlay)
@@ -135,7 +140,7 @@ class TarotApp(App):
 
     def build(self):
         Logger.info("TarotApp: Building app")
-        
+
         # Set the application icon
         icon_paths = [
             'images/AppIcons/playstore.png',
@@ -168,6 +173,8 @@ class TarotApp(App):
             for test_file in test_files:
                 if os.path.exists(f"{path}{test_file}"):
                     return path
+
+        Logger.warning("TarotApp: No image folder matched known test files, defaulting to 'images/'")
         return 'images/'
 
     def get_card_image_path(self, card_name):
@@ -264,46 +271,88 @@ class TarotApp(App):
     def start_reading(self, num_cards, spread_name):
         """Start a tarot reading"""
         Logger.info(f"TarotApp: Starting {spread_name} reading with {num_cards} cards")
-        
+
         # Draw cards and orientations
         self.current_cards = random.sample(tarot_cards, num_cards)
         self.current_orientations = [random.choice(["Upright", "Reversed"]) for _ in range(num_cards)]
         self.current_spread_name = spread_name
+        self.current_positions = SPREAD_POSITIONS.get(
+            spread_name, [f"Card {i + 1}" for i in range(num_cards)]
+        )
         self.card_index = 0
-        
+
+        # Reset the log for this new reading -- cleared from memory, as expected.
+        self.reading_log = []
+
         self.show_card()
 
+    def build_reading_panel(self):
+        """
+        Build the persistent bottom panel that lists every card revealed
+        so far in the current reading (position, name, orientation), so
+        the user can read/write it down without it disappearing when the
+        next card is flipped.
+        """
+        panel_height_hint = 0.22
+
+        scroll = ScrollView(size_hint=(1, panel_height_hint))
+        self.reading_log_label = Label(
+            text=self._format_reading_log(),
+            font_size='15sp',
+            color=(1, 1, 1, 1),
+            size_hint_y=None,
+            halign='left',
+            valign='top',
+            markup=True,
+        )
+        self.reading_log_label.bind(
+            width=lambda inst, w: setattr(inst, 'text_size', (w, None)),
+            texture_size=lambda inst, ts: setattr(inst, 'height', ts[1]),
+        )
+        scroll.add_widget(self.reading_log_label)
+        return scroll
+
+    def _format_reading_log(self):
+        if not self.reading_log:
+            return "[i]Revealed cards will appear here[/i]"
+        return "\n".join(self.reading_log)
+
+    def refresh_reading_panel(self):
+        """Update the bottom panel text after a new card is revealed."""
+        if hasattr(self, 'reading_log_label'):
+            self.reading_log_label.text = self._format_reading_log()
+
     def show_card(self):
-        """Display the current card cleanly"""
+        """Display the current card, with the reading log pinned below it."""
         self.main_layout.clear_widgets()
-        
+
         # Get current card info
         card_name = self.current_cards[self.card_index]
         orientation = self.current_orientations[self.card_index]
-        
-        # Main container
-        container = BoxLayout(
+        position_name = self.current_positions[self.card_index]
+
+        # Outer container: card area on top, reading log pinned at the bottom
+        outer = BoxLayout(
             orientation='vertical',
-            padding=40,
-            spacing=20,
-            size_hint=(0.95, 0.95),
-            pos_hint={'center_x': 0.5, 'center_y': 0.5}
+            padding=20,
+            spacing=10,
+            size_hint=(1, 1),
         )
 
         # Spread info (small, at top)
-        info_text = f"{self.current_spread_name} • Card {self.card_index + 1} of {len(self.current_cards)}"
+        info_text = f"{self.current_spread_name} • {position_name} • Card {self.card_index + 1} of {len(self.current_cards)}"
         info_label = Label(
             text=info_text,
             font_size='14sp',
             color=(0.7, 0.7, 0.7, 1),
-            size_hint_y=0.08,
+            size_hint_y=0.06,
             halign='center'
         )
-        container.add_widget(info_label)
+        outer.add_widget(info_label)
 
         # Get card image path
         card_back_path = self.get_card_back_path()
-        
+
         # Create the tarot card (this will be the main button)
         self.current_card_widget = TarotCardImage(
             card_name=card_name,
@@ -311,25 +360,26 @@ class TarotApp(App):
             source=card_back_path,
             allow_stretch=True,
             keep_ratio=True,
-            size_hint=(1, 0.84)
+            size_hint=(1, 0.58)
         )
-        
-        # Bind the card tap
+        self.current_card_widget.position_name = position_name
         self.current_card_widget.bind(on_press=self.reveal_card)
-        
-        container.add_widget(self.current_card_widget)
+        outer.add_widget(self.current_card_widget)
 
-        # Instructions (small, at bottom)
-        instruction_label = Label(
+        # Instructions (small, under the card)
+        self.instruction_label = Label(
             text="Tap the card to reveal",
             font_size='16sp',
             color=(0.8, 0.8, 0.8, 1),
-            size_hint_y=0.08,
+            size_hint_y=0.14,
             halign='center'
         )
-        container.add_widget(instruction_label)
+        outer.add_widget(self.instruction_label)
 
-        self.main_layout.add_widget(container)
+        # Persistent bottom panel: log of every card revealed this reading
+        outer.add_widget(self.build_reading_panel())
+
+        self.main_layout.add_widget(outer)
 
     def reveal_card(self, instance):
         """Reveal the current card"""
@@ -337,39 +387,39 @@ class TarotApp(App):
             # If already revealed, go to next card or back to menu
             self.next_card_or_menu()
             return
-            
+
         Logger.info(f"TarotApp: Revealing {instance.card_name} ({instance.orientation})")
-        
+
         # Get the actual card image
         card_image_path = self.get_card_image_path(instance.card_name)
-        
+
         if card_image_path and os.path.exists(card_image_path):
             instance.source = card_image_path
             instance.is_revealed = True
-            
-            # Update instruction text
-            for child in self.main_layout.children:
-                if isinstance(child, BoxLayout):
-                    for subchild in child.children:
-                        if isinstance(subchild, Label) and "Tap the card" in subchild.text:
-                            card_text = f"{instance.card_name}"
-                            orientation_text = f"({instance.orientation})"
-                            if self.card_index + 1 < len(self.current_cards):
-                                next_text = "Tap for next card"
-                            else:
-                                next_text = "Tap to return to menu"
-                            subchild.text = f"{card_text}\n{orientation_text}\n\n{next_text}"
-                            break
+
+            card_text = instance.card_name
+            orientation_text = f"({instance.orientation})"
+            if self.card_index + 1 < len(self.current_cards):
+                next_text = "Tap for next card"
+            else:
+                next_text = "Tap to return to menu"
+            self.instruction_label.text = f"{card_text}\n{orientation_text}\n\n{next_text}"
+
+            # Append this card to the persistent bottom-panel log
+            log_entry = f"[b]{instance.position_name}:[/b] {instance.card_name} ({instance.orientation})"
+            self.reading_log.append(log_entry)
+            self.refresh_reading_panel()
 
     def next_card_or_menu(self):
         """Move to next card or return to menu"""
         self.card_index += 1
-        
+
         if self.card_index >= len(self.current_cards):
-            # All cards shown, return to menu
+            # All cards shown, return to menu (reading_log is reset in start_reading)
             self.show_card_menu()
         else:
-            # Show next card
+            # Show next card -- reading_log carries over so the panel keeps
+            # accumulating entries for every card in this spread.
             self.show_card()
 
 
