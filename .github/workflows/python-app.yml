@@ -26,12 +26,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Belt-and-suspenders: GitHub-hosted runners ship several JDKs
-      # side-by-side (8/11/17/21/25). setup-java above should already put
-      # 17 first on PATH, but buildozer's own subprocess calls to
-      # sdkmanager have been seen to resolve an older 'java' anyway. Pin
-      # JAVA_HOME/PATH explicitly using the runner's guaranteed
-      # JAVA_HOME_17_X64 var so nothing downstream can fall back to Java 11.
+      # Force Java 17 for all Android tooling.
       - name: Force Java 17 for Android SDK tools
         run: |
           echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
@@ -49,28 +44,41 @@ jobs:
 
       - name: Install buildozer and Cython
         run: |
-          pip install --upgrade pip
-          pip install buildozer cython==0.29.36
+          python -m pip install --upgrade pip
+          python -m pip install buildozer cython==0.29.36
 
-      # Cache the Android SDK/NDK and buildozer global dir between runs.
-      # Bump the key suffix (e.g. -v2) any time you need a clean rebuild,
-      # such as after license-acceptance issues.
+      # Cache only the global Buildozer directory.
+      #
+      # IMPORTANT:
+      # We intentionally do NOT cache .buildozer because it contains
+      # project-specific python-for-android build environments and
+      # temporary virtual environments that can become corrupted/stale.
       - name: Cache buildozer global directory
         uses: actions/cache@v4
         with:
           path: ~/.buildozer
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }}-v2
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }}-v3
 
-      # buildozer will download the SDK on first run if it isn't cached yet.
-      # We accept licenses explicitly afterward so CI never hits an
-      # interactive y/N prompt that silently fails the build.
+      # Always start the project build directory clean.
+      - name: Clean project build directory
+        run: |
+          rm -rf .buildozer
+
+      # Buildozer will download the SDK/NDK on first run if needed.
+      # Accept Android SDK licenses non-interactively.
       - name: Pre-fetch Android SDK and accept licenses
         run: |
           yes | buildozer android debug || true
+
           SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
+
           if [ -d "$SDK_DIR/cmdline-tools/latest/bin" ]; then
             yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" --licenses || true
-            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" "build-tools;33.0.2" "platform-tools" "platforms;android-33" || true
+
+            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" \
+              "build-tools;33.0.2" \
+              "platform-tools" \
+              "platforms;android-33" || true
           fi
 
       - name: Build with buildozer
