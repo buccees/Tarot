@@ -15,65 +15,76 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: ''
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
+
+      # Belt-and-suspenders: GitHub-hosted runners ship several JDKs
+      # side-by-side (8/11/17/21/25). setup-java above should already put
+      # 17 first on PATH, but buildozer's own subprocess calls to
+      # sdkmanager have been seen to resolve an older 'java' anyway. Pin
+      # JAVA_HOME/PATH explicitly using the runner's guaranteed
+      # JAVA_HOME_17_X64 var so nothing downstream can fall back to Java 11.
+      - name: Force Java 17 for Android SDK tools
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
+          echo "$JAVA_HOME_17_X64/bin" >> "$GITHUB_PATH"
 
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            git zip unzip \
+            git zip unzip openjdk-17-jdk \
             autoconf libtool pkg-config \
             zlib1g-dev libncurses5-dev libncursesw5-dev \
             libtinfo5 cmake libffi-dev libssl-dev \
             build-essential ccache
 
-      - name: Install Buildozer and dependencies
+      - name: Install buildozer and Cython
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install buildozer==1.4.0 cython==0.29.30
+          pip install --upgrade pip
+          pip install buildozer cython==0.29.36
 
-      - name: Clean all caches
+      # Cache the Android SDK/NDK and buildozer global dir between runs.
+      # Bump the key suffix (e.g. -v2) any time you need a clean rebuild,
+      # such as after license-acceptance issues.
+      - name: Cache buildozer global directory
+        uses: actions/cache@v4
+        with:
+          path: ~/.buildozer
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }}-v1
+
+      - name: Cache buildozer project build directory
+        uses: actions/cache@v4
+        with:
+          path: .buildozer
+          key: buildozer-project-${{ hashFiles('buildozer.spec') }}-v1
+
+      # buildozer will download the SDK on first run if it isn't cached yet.
+      # We accept licenses explicitly afterward so CI never hits an
+      # interactive y/N prompt that silently fails the build.
+      - name: Pre-fetch Android SDK and accept licenses
         run: |
-          rm -rf ~/.buildozer
-          rm -rf .buildozer
-          rm -rf ~/.android
-          rm -rf ~/.gradle
+          yes | buildozer android debug || true
+          SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
+          if [ -d "$SDK_DIR/cmdline-tools/latest/bin" ]; then
+            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" "build-tools;33.0.2" "platform-tools" "platforms;android-33" || true
+          fi
 
-      - name: Install Android build-tools
+      - name: Build with buildozer
         run: |
-          mkdir -p ~/.buildozer/android/platform/android-sdk
-          cd ~/.buildozer/android/platform/android-sdk
-          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
-          unzip -q commandlinetools-linux-11076708_latest.zip
-          mkdir -p cmdline-tools/latest
-          mv cmdline-tools/* cmdline-tools/latest/ 2>/dev/null || true
-          yes | cmdline-tools/latest/bin/sdkmanager --sdk_root=. "build-tools;33.0.2" "platforms;android-33" "platform-tools"
+          yes | buildozer -v android debug
 
-      - name: Build APK
-        run: |
-          buildozer -v android debug 2>&1 | tee build.log
-          exit ${PIPESTATUS[0]}
-
-      - name: Upload APK
-        if: success()
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: pictarotapp-debug-apk
           path: bin/*.apk
-
-      - name: Upload build log on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: build.log
