@@ -3,22 +3,28 @@
 title = Custom Art Tarot
 package.name = pictarotapp
 package.domain = org.example
-version = 1.0
 
 source.dir = .
 source.include_exts = py,png,kv,atlas
 
+version = 1.0
+
 fullscreen = 0
 orientation = portrait
+
 icon.filename = images/AppIcons/playstore.png
 
-requirements = python3==3.11.9,hostpython3,kivy,pyjnius,android,sqlite3,libffi,openssl,sdl2,sdl2_image,sdl2_mixer,sdl2_ttf,setuptools,six
+# IMPORTANT:
+# Pin the Python used inside the Android build.
+# The host GitHub runner can remain on Python 3.11.
+requirements = python3==3.12.10,kivy,requests
 
 [buildozer]
 
 log_level = 2
 
 android.skip_update = False
+
 android.sdk_path =
 android.ndk_path =
 
