@@ -14,22 +14,18 @@ orientation = portrait
 
 icon.filename = images/AppIcons/playstore.png
 
-# IMPORTANT:
-# Pin the Python used inside the Android build.
-# The host GitHub runner can remain on Python 3.11.
-requirements = python3,kivy,requests
-
+requirements = python3,kivy
 
 [buildozer]
 
 log_level = 2
 
-android.skip_update = False
+android.skip_update = True
 
-android.sdk_path =
-android.ndk_path =
+android.sdk_path = /home/runner/android-sdk
+android.ndk_path = /home/runner/android-sdk/ndk/28.2.13676358
 
-android.api = 35
+android.api = 36
 android.ndk = 28c
 android.minapi = 24
 
