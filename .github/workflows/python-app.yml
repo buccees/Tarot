@@ -154,7 +154,9 @@ jobs:
 
           echo
           echo "AIDL:"
-          "$ANDROID_HOME/build-tools/35.0.0/aidl" --version
+          "$ANDROID_HOME/build-tools/35.0.0/aidl" --help >/dev/null
+          echo "AIDL is available."
+
 
           echo
           echo "Android SDK:"
