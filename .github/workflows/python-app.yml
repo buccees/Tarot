@@ -85,7 +85,7 @@ jobs:
           echo "Accepting Android SDK licenses..."
           yes | "$SDKMANAGER" \
             --sdk_root="$ANDROID_HOME" \
-            --licenses
+            --licenses || true
 
           echo "Installing Android SDK components..."
           "$SDKMANAGER" \
