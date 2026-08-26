@@ -1,8 +1,6 @@
 name: Android Build
 
 on:
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -10,90 +8,65 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Set up JDK 17
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Force Java 17 for Android SDK tools
-        run: |
-          echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
-          echo "$JAVA_HOME_17_X64/bin" >> "$GITHUB_PATH"
+          distribution: temurin
+          java-version: "17"
 
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            git zip unzip openjdk-17-jdk \
-            autoconf libtool pkg-config \
-            zlib1g-dev libncurses5-dev libncursesw5-dev \
-            libtinfo5 cmake libffi-dev libssl-dev \
-            build-essential ccache
+            git \
+            zip \
+            unzip \
+            autoconf \
+            libtool \
+            pkg-config \
+            zlib1g-dev \
+            libncurses5-dev \
+            libncursesw5-dev \
+            libtinfo5 \
+            cmake \
+            libffi-dev \
+            libssl-dev \
+            build-essential \
+            ccache
 
-      - name: Install buildozer and Cython
+      - name: Install Python build tools
         run: |
           python -m pip install --upgrade pip
-          python -m pip install buildozer cython==0.29.36
+          python -m pip install buildozer
+          python -m pip install "cython==0.29.36"
 
-      # Cache only global SDK/NDK downloads.
-      # Do NOT cache the project .buildozer directory.
-      - name: Cache buildozer global directory
-        uses: actions/cache@v4
-        with:
-          path: ~/.buildozer
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }}-v4
-
-      # Make absolutely sure no stale project build survives.
-      - name: Clean project build directory
+      - name: Show build environment
         run: |
-          rm -rf .buildozer
-
-      # Let Buildozer/p4a download the SDK/NDK as needed.
-      # Do NOT run a hidden debug build here.
-      - name: Prepare Android SDK licenses
-        run: |
-          SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
-
-          if [ -d "$SDK_DIR/cmdline-tools/latest/bin" ]; then
-            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" --licenses || true
-
-            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" \
-              "build-tools;33.0.2" \
-              "platform-tools" \
-              "platforms;android-33" || true
-          fi
-
-      - name: Show build configuration
-        run: |
-          echo "=== Python ==="
           python --version
-          python -m pip --version
-
-          echo "=== Java ==="
           java -version
-          javac -version
-
-          echo "=== Buildozer ==="
           buildozer --version
 
-          echo "=== Buildozer spec ==="
-          grep -E '^(requirements|p4a.branch|android.ndk|android.api|android.minapi|android.build_tools|android.archs)' buildozer.spec
-
-      - name: Build with buildozer
+      - name: Build APK
         run: |
-          yes | buildozer -v android debug
+          buildozer -v android debug
 
-      - name: Upload APK artifact
+      - name: Verify APK
+        run: |
+          echo "Contents of bin/:"
+          ls -lah bin/
+          test -n "$(find bin -maxdepth 1 -name '*.apk' -print -quit)"
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: pictarotapp-debug-apk
+          name: tarot-debug-apk
           path: bin/*.apk
+          if-no-files-found: error
