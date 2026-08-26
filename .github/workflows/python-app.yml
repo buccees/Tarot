@@ -54,9 +54,16 @@ jobs:
           java -version
           buildozer --version
 
+      - name: Accept Android SDK licenses
+        run: |
+          SDKMANAGER="$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses || true
+
       - name: Build APK
         run: |
-          buildozer -v android debug
+         buildozer -v android debug
+
+
 
       - name: Verify APK
         run: |
