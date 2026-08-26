@@ -153,12 +153,6 @@ jobs:
           "$ANDROID_HOME/platform-tools/adb" version
 
           echo
-          echo "AIDL:"
-          "$ANDROID_HOME/build-tools/35.0.0/aidl" --help >/dev/null
-          echo "AIDL is available."
-
-
-          echo
           echo "Android SDK:"
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
             --sdk_root="$ANDROID_HOME" \
