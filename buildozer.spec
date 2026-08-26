@@ -33,7 +33,7 @@ android.api = 35
 android.ndk = 28c
 android.minapi = 24
 
-android.archs = arm64-v8a,armeabi-v7a
+android.archs = arm64-v8a
 
 android.permissions = INTERNET
 
