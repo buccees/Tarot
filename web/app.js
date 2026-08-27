@@ -1,14 +1,8 @@
 "use strict";
 
-/*
- * Custom Art Tarot
- *
- * Browser implementation of the existing Kivy Tarot application.
- */
-
 
 /* =========================
-   TAROT DECK
+   DECK
    ========================= */
 
 const SUITS = [
@@ -72,7 +66,7 @@ TAROT_CARDS.push(...MAJOR_ARCANA);
 
 
 /* =========================
-   SPREAD POSITIONS
+   SPREADS
    ========================= */
 
 const SPREAD_POSITIONS = {
@@ -110,7 +104,7 @@ const SPREAD_POSITIONS = {
 
 
 /* =========================
-   APPLICATION STATE
+   STATE
    ========================= */
 
 const state = {
@@ -128,48 +122,58 @@ const state = {
    DOM
    ========================= */
 
-const menuScreen = document.getElementById("menu-screen");
-const readingScreen = document.getElementById("reading-screen");
+const menuScreen =
+    document.getElementById("menu-screen");
 
-const currentCard = document.getElementById("current-card");
-const cardImage = document.getElementById("card-image");
+const readingScreen =
+    document.getElementById("reading-screen");
 
-const readingInfo = document.getElementById("reading-info");
-const instruction = document.getElementById("instruction");
-const readingLog = document.getElementById("reading-log");
+const currentCard =
+    document.getElementById("current-card");
+
+const cardImage =
+    document.getElementById("card-image");
+
+const readingInfo =
+    document.getElementById("reading-info");
+
+const instruction =
+    document.getElementById("instruction");
+
+const readingLog =
+    document.getElementById("reading-log");
+
+
+const CARD_ROOT =
+    "images/rider-waite-tarot/";
 
 const CARD_BACK =
-    "../images/rider-waite-tarot/CardBacks.jpg";
+    `${CARD_ROOT}CardBacks.jpg`;
 
 
 /* =========================
-   HELPERS
+   CARD FILE NAMES
    ========================= */
 
 function cardImagePath(cardName) {
     const filename =
         cardName.replaceAll(" ", "_") + ".png";
 
-    return `../images/rider-waite-tarot/${filename}`;
+    return `${CARD_ROOT}${filename}`;
 }
 
 
-function randomInt(max) {
-    return Math.floor(Math.random() * max);
-}
+/* =========================
+   RANDOM CARD SELECTION
+   ========================= */
 
-
-/*
- * Equivalent in purpose to Python's random.sample().
- *
- * Cards are selected without replacement.
- */
 function sampleCards(cards, count) {
     const pool = [...cards];
     const selected = [];
 
     while (selected.length < count) {
-        const index = randomInt(pool.length);
+        const index =
+            Math.floor(Math.random() * pool.length);
 
         selected.push(pool[index]);
         pool.splice(index, 1);
@@ -211,6 +215,13 @@ function showMenu() {
     state.cardIndex = 0;
     state.currentRevealed = false;
     state.readingLog = [];
+
+    cardImage.src = CARD_BACK;
+    cardImage.alt = "Tarot card back";
+
+    currentCard.classList.remove("reversed");
+
+    refreshReadingLog();
 }
 
 
@@ -228,7 +239,8 @@ function startReading(numCards, spreadName) {
             () => randomOrientation()
         );
 
-    state.currentSpreadName = spreadName;
+    state.currentSpreadName =
+        spreadName;
 
     state.currentPositions =
         SPREAD_POSITIONS[spreadName] ||
@@ -249,16 +261,10 @@ function startReading(numCards, spreadName) {
 
 
 /* =========================
-   SHOW CURRENT CARD
+   SHOW CARD BACK
    ========================= */
 
 function showCard() {
-    const cardName =
-        state.currentCards[state.cardIndex];
-
-    const orientation =
-        state.currentOrientations[state.cardIndex];
-
     const positionName =
         state.currentPositions[state.cardIndex];
 
@@ -287,16 +293,6 @@ function showCard() {
    ========================= */
 
 function revealCard() {
-    /*
-     * Match the Kivy behavior:
-     *
-     * First tap:
-     *   reveal card
-     *
-     * Second tap:
-     *   advance to next card
-     *   or return to menu
-     */
     if (state.currentRevealed) {
         nextCardOrMenu();
         return;
@@ -311,7 +307,8 @@ function revealCard() {
     const positionName =
         state.currentPositions[state.cardIndex];
 
-    cardImage.src = cardImagePath(cardName);
+    cardImage.src =
+        cardImagePath(cardName);
 
     cardImage.alt =
         `${cardName} (${orientation})`;
@@ -325,16 +322,17 @@ function revealCard() {
     state.currentRevealed = true;
 
     const isLastCard =
-        state.cardIndex + 1 >= state.currentCards.length;
-
-    const nextText = isLastCard
-        ? "Tap to return to menu"
-        : "Tap for next card";
+        state.cardIndex + 1 >=
+        state.currentCards.length;
 
     instruction.textContent =
         `${cardName}\n` +
         `(${orientation})\n\n` +
-        nextText;
+        (
+            isLastCard
+                ? "Tap to return to menu"
+                : "Tap for next card"
+        );
 
     state.readingLog.push({
         position: positionName,
@@ -353,7 +351,10 @@ function revealCard() {
 function nextCardOrMenu() {
     state.cardIndex += 1;
 
-    if (state.cardIndex >= state.currentCards.length) {
+    if (
+        state.cardIndex >=
+        state.currentCards.length
+    ) {
         showMenu();
         return;
     }
@@ -363,7 +364,7 @@ function nextCardOrMenu() {
 
 
 /* =========================
-   READING LOG
+   LOG
    ========================= */
 
 function refreshReadingLog() {
@@ -375,17 +376,15 @@ function refreshReadingLog() {
 
     readingLog.innerHTML =
         state.readingLog
-            .map(entry => {
-                return `
-                    <div class="reading-entry">
-                        <span class="reading-position">
-                            ${escapeHtml(entry.position)}:
-                        </span>
-                        ${escapeHtml(entry.card)}
-                        (${escapeHtml(entry.orientation)})
-                    </div>
-                `;
-            })
+            .map(entry => `
+                <div class="reading-entry">
+                    <span class="reading-position">
+                        ${escapeHtml(entry.position)}:
+                    </span>
+                    ${escapeHtml(entry.card)}
+                    (${escapeHtml(entry.orientation)})
+                </div>
+            `)
             .join("");
 }
 
@@ -397,15 +396,11 @@ function refreshReadingLog() {
 document
     .querySelectorAll(".spread-card")
     .forEach(button => {
-
         button.addEventListener("click", () => {
-            const spreadName =
-                button.dataset.spread;
-
-            const count =
-                Number(button.dataset.count);
-
-            startReading(count, spreadName);
+            startReading(
+                Number(button.dataset.count),
+                button.dataset.spread
+            );
         });
     });
 
@@ -417,7 +412,7 @@ currentCard.addEventListener(
 
 
 /* =========================
-   INITIALIZE
+   START
    ========================= */
 
 showMenu();
