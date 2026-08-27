@@ -28,22 +28,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify web application
+      - name: Build website
         shell: bash
         run: |
           set -eux
 
-          test -f web/index.html
-          test -f web/style.css
-          test -f web/app.js
+          rm -rf site
+          mkdir -p site
 
-          test -f images/rider-waite-tarot/CardBacks.jpg
+          cp web/index.html site/index.html
+          cp web/style.css site/style.css
+          cp web/app.js site/app.js
 
-          test -f images/rider-waite-tarot/The_Fool.png
-          test -f images/rider-waite-tarot/The_Magician.png
-          test -f images/rider-waite-tarot/The_World.png
+          mkdir -p site/images
 
-          echo "Web application files verified."
+          cp -R images/rider-waite-tarot \
+            site/images/rider-waite-tarot
+
+          echo "Website contents:"
+          find site -type f | sort
+
+          echo "Card count:"
+          find site/images/rider-waite-tarot \
+            -type f | wc -l
+
+          test -f site/index.html
+          test -f site/style.css
+          test -f site/app.js
+          test -f site/images/rider-waite-tarot/CardBacks.jpg
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -51,7 +63,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "web"
+          path: site
 
       - name: Deploy to GitHub Pages
         id: deployment
