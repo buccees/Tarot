@@ -14,16 +14,17 @@ orientation = portrait
 
 icon.filename = images/AppIcons/playstore.png
 
-# Kivy's p4a recipe pulls requests and its dependencies.
-# Pin charset-normalizer to a version that does not publish
-# the problematic CPython 3.14 Android binary wheel.
+# Kivy's python-for-android recipe pulls requests and its
+# pure-Python dependencies. Pin charset-normalizer so that
+# p4a does not select the problematic CPython 3.14 Android wheel.
 requirements = python3,kivy,charset-normalizer==3.4.9
 
-# Use a released, reproducible python-for-android version.
+# Pin python-for-android instead of following moving master.
 p4a.branch = v2026.05.09
 
 # Android configuration
 android.skip_update = True
+
 android.sdk_path = /home/runner/android-sdk
 android.ndk_path = /home/runner/android-sdk/ndk/28.2.13676358
 
