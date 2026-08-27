@@ -47,9 +47,7 @@ button {
 }
 
 
-/* =========================
-   MENU
-   ========================= */
+/* MENU */
 
 #menu-screen {
     display: flex;
@@ -91,6 +89,7 @@ button {
     overflow: hidden;
     background: #111;
     cursor: pointer;
+
     box-shadow:
         0 8px 30px rgba(0, 0, 0, 0.5),
         0 0 0 1px rgba(255, 255, 255, 0.12);
@@ -102,6 +101,7 @@ button {
 
 .spread-card:hover {
     transform: translateY(-4px);
+
     box-shadow:
         0 14px 40px rgba(0, 0, 0, 0.7),
         0 0 0 1px rgba(255, 255, 255, 0.25);
@@ -154,9 +154,7 @@ button {
 }
 
 
-/* =========================
-   READING
-   ========================= */
+/* READING */
 
 #reading-screen {
     padding: 20px;
@@ -194,19 +192,15 @@ button {
     max-height: 58vh;
 
     padding: 0;
-
     border: 0;
     border-radius: 10px;
 
     background: transparent;
-
     cursor: pointer;
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    perspective: 1000px;
 }
 
 .card-button img {
@@ -259,9 +253,7 @@ button {
 }
 
 
-/* =========================
-   READING LOG
-   ========================= */
+/* READING LOG */
 
 .reading-log {
     width: 100%;
@@ -297,9 +289,7 @@ button {
 }
 
 
-/* =========================
-   SMALL SCREENS
-   ========================= */
+/* MOBILE */
 
 @media (max-width: 600px) {
     #menu-screen {
@@ -352,9 +342,7 @@ button {
 }
 
 
-/* =========================
-   LANDSCAPE PHONES
-   ========================= */
+/* LANDSCAPE */
 
 @media (max-height: 600px) and (orientation: landscape) {
     #menu-screen {
