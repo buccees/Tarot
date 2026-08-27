@@ -48,7 +48,7 @@ jobs:
           echo "Website contents:"
           find site -type f | sort
 
-          echo "Card count:"
+          echo "Card image count:"
           find site/images/rider-waite-tarot \
             -type f | wc -l
 
