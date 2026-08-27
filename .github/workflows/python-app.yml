@@ -75,8 +75,7 @@ jobs:
 
           mkdir -p "$ANDROID_HOME/cmdline-tools/latest"
 
-          cp -r \
-            /tmp/android-cmdline/cmdline-tools/* \
+          cp -r /tmp/android-cmdline/cmdline-tools/* \
             "$ANDROID_HOME/cmdline-tools/latest/"
 
           SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
@@ -98,30 +97,32 @@ jobs:
             "build-tools;35.0.0" \
             "build-tools;37.0.0"
 
-          echo "Accepting licenses again after installation..."
+          echo "Creating legacy sdkmanager path for Buildozer..."
+          mkdir -p "$ANDROID_HOME/tools/bin"
+
+          ln -sf \
+            "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+            "$ANDROID_HOME/tools/bin/sdkmanager"
+
+          echo "Creating legacy avdmanager path..."
+          ln -sf \
+            "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" \
+            "$ANDROID_HOME/tools/bin/avdmanager"
+
+          echo "Accepting licenses again..."
           yes | "$SDKMANAGER" \
             --sdk_root="$ANDROID_HOME" \
             --licenses || true
 
           echo "Android SDK installation complete."
 
-          "$SDKMANAGER" \
+          echo "sdkmanager locations:"
+          ls -l "$ANDROID_HOME/tools/bin/sdkmanager"
+          ls -l "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+
+          "$ANDROID_HOME/tools/bin/sdkmanager" \
             --sdk_root="$ANDROID_HOME" \
             --list_installed
-
-          echo "Creating legacy SDK tools path for Buildozer..."
-
-          rm -rf "$ANDROID_HOME/tools"
-
-          ln -s \
-            "$ANDROID_HOME/cmdline-tools/latest" \
-            "$ANDROID_HOME/tools"
-
-          echo "Verifying Buildozer sdkmanager path..."
-
-          test -x "$ANDROID_HOME/tools/bin/sdkmanager"
-
-          "$ANDROID_HOME/tools/bin/sdkmanager" --version
 
       - name: Set up Android NDK r28c
         shell: bash
@@ -137,14 +138,11 @@ jobs:
             "https://dl.google.com/android/repository/android-ndk-r28c-linux.zip" \
             -O /tmp/android-ndk.zip
 
-          unzip -q \
-            /tmp/android-ndk.zip \
-            -d /tmp/android-ndk
+          unzip -q /tmp/android-ndk.zip -d /tmp/android-ndk
 
           rm -rf "$ANDROID_HOME/ndk/$NDK_VERSION"
 
-          mv \
-            /tmp/android-ndk/android-ndk-r28c \
+          mv /tmp/android-ndk/android-ndk-r28c \
             "$ANDROID_HOME/ndk/$NDK_VERSION"
 
           echo "ANDROID_NDK=$ANDROID_HOME/ndk/$NDK_VERSION" >> "$GITHUB_ENV"
@@ -153,6 +151,31 @@ jobs:
 
           echo "Installed NDK:"
           cat "$ANDROID_HOME/ndk/$NDK_VERSION/source.properties"
+
+      - name: Configure Buildozer environment
+        shell: bash
+        run: |
+          set -e
+
+          ANDROID_HOME="$HOME/android-sdk"
+
+          {
+            echo "ANDROID_HOME=$ANDROID_HOME"
+            echo "ANDROID_SDK_ROOT=$ANDROID_HOME"
+            echo "ANDROIDSDK=$ANDROID_HOME"
+
+            echo "ANDROID_NDK=$ANDROID_HOME/ndk/28.2.13676358"
+            echo "ANDROID_NDK_ROOT=$ANDROID_HOME/ndk/28.2.13676358"
+            echo "ANDROIDNDK=$ANDROID_HOME/ndk/28.2.13676358"
+
+            echo "ANDROIDAPI=36"
+            echo "NDKAPI=24"
+          } >> "$GITHUB_ENV"
+
+          echo "PATH additions:"
+          echo "$ANDROID_HOME/tools/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
 
       - name: Verify Android toolchain
         shell: bash
@@ -181,14 +204,11 @@ jobs:
           "$ANDROID_HOME/platform-tools/adb" version
 
           echo
-          echo "Android SDK:"
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+          echo "Legacy sdkmanager:"
+          test -x "$ANDROID_HOME/tools/bin/sdkmanager"
+          "$ANDROID_HOME/tools/bin/sdkmanager" \
             --sdk_root="$ANDROID_HOME" \
             --list_installed
-
-          echo
-          echo "Legacy sdkmanager path:"
-          "$ANDROID_HOME/tools/bin/sdkmanager" --version
 
           echo
           echo "Build Tools:"
@@ -215,34 +235,12 @@ jobs:
           echo
           echo "Android toolchain verification successful."
 
-      - name: Configure Buildozer environment
-        shell: bash
-        run: |
-          set -e
-
-          ANDROID_HOME="$HOME/android-sdk"
-          ANDROID_NDK="$HOME/android-sdk/ndk/28.2.13676358"
-
-          {
-            echo "ANDROID_HOME=$ANDROID_HOME"
-            echo "ANDROID_SDK_ROOT=$ANDROID_HOME"
-            echo "ANDROIDSDK=$ANDROID_HOME"
-            echo "ANDROID_NDK=$ANDROID_NDK"
-            echo "ANDROID_NDK_ROOT=$ANDROID_NDK"
-            echo "ANDROIDNDK=$ANDROID_NDK"
-            echo "ANDROIDAPI=36"
-            echo "NDKAPI=24"
-          } >> "$GITHUB_ENV"
-
       - name: Clean previous Buildozer state
         run: |
           rm -rf .buildozer
 
       - name: Build Tarot APK
-        shell: bash
         run: |
-          set -e
-
           buildozer -v android debug
 
       - name: Verify APK
