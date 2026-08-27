@@ -7,19 +7,30 @@ jobs:
   build:
     runs-on: ubuntu-22.04
 
+    env:
+      ANDROID_HOME: /home/runner/android-sdk
+      ANDROID_SDK_ROOT: /home/runner/android-sdk
+      ANDROIDSDK: /home/runner/android-sdk
+      ANDROID_NDK: /home/runner/android-sdk/ndk/28.2.13676358
+      ANDROID_NDK_ROOT: /home/runner/android-sdk/ndk/28.2.13676358
+      ANDROIDNDK: /home/runner/android-sdk/ndk/28.2.13676358
+      ANDROIDAPI: "36"
+      NDKAPI: "24"
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
 
-      - name: Set up Java 17
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: "temurin"
+          distribution: temurin
           java-version: "17"
 
       - name: Install system dependencies
@@ -48,24 +59,17 @@ jobs:
       - name: Install Python build tools
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install "cython==0.29.36" "buildozer==1.5.0"
+          python -m pip install "buildozer==1.6.0" "cython==0.29.36"
 
       - name: Set up Android SDK
         shell: bash
         run: |
-          set -e
+          set -euxo pipefail
 
-          ANDROID_HOME="$HOME/android-sdk"
+          SDK="$ANDROID_HOME"
 
-          rm -rf "$ANDROID_HOME"
-          mkdir -p "$ANDROID_HOME/cmdline-tools"
-
-          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
-          echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV"
-          echo "ANDROIDSDK=$ANDROID_HOME" >> "$GITHUB_ENV"
-
-          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
-          echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
+          rm -rf "$SDK"
+          mkdir -p "$SDK/cmdline-tools"
 
           wget -q \
             "https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip" \
@@ -73,194 +77,115 @@ jobs:
 
           unzip -q /tmp/cmdline-tools.zip -d /tmp/android-cmdline
 
-          mkdir -p "$ANDROID_HOME/cmdline-tools/latest"
-
+          mkdir -p "$SDK/cmdline-tools/latest"
           cp -r /tmp/android-cmdline/cmdline-tools/* \
-            "$ANDROID_HOME/cmdline-tools/latest/"
+            "$SDK/cmdline-tools/latest/"
 
-          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-
+          SDKMANAGER="$SDK/cmdline-tools/latest/bin/sdkmanager"
           chmod +x "$SDKMANAGER"
 
-          touch "$ANDROID_HOME/repositories.cfg"
+          mkdir -p "$SDK/tools/bin"
+          ln -sf "$SDKMANAGER" "$SDK/tools/bin/sdkmanager"
+          ln -sf "$SDK/cmdline-tools/latest/bin/avdmanager" \
+            "$SDK/tools/bin/avdmanager"
 
-          echo "Accepting Android SDK licenses..."
+          touch "$SDK/repositories.cfg"
+
           yes | "$SDKMANAGER" \
-            --sdk_root="$ANDROID_HOME" \
+            --sdk_root="$SDK" \
             --licenses || true
 
-          echo "Installing Android SDK components..."
           "$SDKMANAGER" \
-            --sdk_root="$ANDROID_HOME" \
+            --sdk_root="$SDK" \
             "platform-tools" \
             "platforms;android-36" \
-            "build-tools;35.0.0" \
-            "build-tools;37.0.0"
-
-          echo "Creating legacy sdkmanager path for Buildozer..."
-          mkdir -p "$ANDROID_HOME/tools/bin"
-
-          ln -sf \
-            "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
-            "$ANDROID_HOME/tools/bin/sdkmanager"
-
-          echo "Creating legacy avdmanager path..."
-          ln -sf \
-            "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" \
-            "$ANDROID_HOME/tools/bin/avdmanager"
-
-          echo "Accepting licenses again..."
-          yes | "$SDKMANAGER" \
-            --sdk_root="$ANDROID_HOME" \
-            --licenses || true
-
-          echo "Android SDK installation complete."
-
-          echo "sdkmanager locations:"
-          ls -l "$ANDROID_HOME/tools/bin/sdkmanager"
-          ls -l "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-
-          "$ANDROID_HOME/tools/bin/sdkmanager" \
-            --sdk_root="$ANDROID_HOME" \
-            --list_installed
+            "build-tools;36.0.0"
 
       - name: Set up Android NDK r28c
         shell: bash
         run: |
-          set -e
+          set -euxo pipefail
 
-          ANDROID_HOME="$HOME/android-sdk"
+          SDK="$ANDROID_HOME"
           NDK_VERSION="28.2.13676358"
 
-          mkdir -p "$ANDROID_HOME/ndk"
+          mkdir -p "$SDK/ndk"
 
           wget -q \
             "https://dl.google.com/android/repository/android-ndk-r28c-linux.zip" \
             -O /tmp/android-ndk.zip
 
+          rm -rf /tmp/android-ndk
+          mkdir -p /tmp/android-ndk
+
           unzip -q /tmp/android-ndk.zip -d /tmp/android-ndk
 
-          rm -rf "$ANDROID_HOME/ndk/$NDK_VERSION"
+          rm -rf "$SDK/ndk/$NDK_VERSION"
 
           mv /tmp/android-ndk/android-ndk-r28c \
-            "$ANDROID_HOME/ndk/$NDK_VERSION"
+            "$SDK/ndk/$NDK_VERSION"
 
-          echo "ANDROID_NDK=$ANDROID_HOME/ndk/$NDK_VERSION" >> "$GITHUB_ENV"
-          echo "ANDROID_NDK_ROOT=$ANDROID_HOME/ndk/$NDK_VERSION" >> "$GITHUB_ENV"
-          echo "ANDROIDNDK=$ANDROID_HOME/ndk/$NDK_VERSION" >> "$GITHUB_ENV"
+          cat "$SDK/ndk/$NDK_VERSION/source.properties"
 
-          echo "Installed NDK:"
-          cat "$ANDROID_HOME/ndk/$NDK_VERSION/source.properties"
-
-      - name: Configure Buildozer environment
-        shell: bash
+      - name: Configure Android paths
         run: |
-          set -e
-
-          ANDROID_HOME="$HOME/android-sdk"
-
           {
-            echo "ANDROID_HOME=$ANDROID_HOME"
-            echo "ANDROID_SDK_ROOT=$ANDROID_HOME"
-            echo "ANDROIDSDK=$ANDROID_HOME"
+            echo "$ANDROID_HOME/cmdline-tools/latest/bin"
+            echo "$ANDROID_HOME/tools/bin"
+            echo "$ANDROID_HOME/platform-tools"
+          } >> "$GITHUB_PATH"
 
-            echo "ANDROID_NDK=$ANDROID_HOME/ndk/28.2.13676358"
-            echo "ANDROID_NDK_ROOT=$ANDROID_HOME/ndk/28.2.13676358"
-            echo "ANDROIDNDK=$ANDROID_HOME/ndk/28.2.13676358"
-
-            echo "ANDROIDAPI=36"
-            echo "NDKAPI=24"
-          } >> "$GITHUB_ENV"
-
-          echo "PATH additions:"
-          echo "$ANDROID_HOME/tools/bin" >> "$GITHUB_PATH"
-          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
-          echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
-
-      - name: Verify Android toolchain
+      - name: Verify toolchain
         shell: bash
         run: |
-          set -e
+          set -euxo pipefail
 
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          echo "ANDROIDSDK=$ANDROIDSDK"
-          echo "ANDROID_NDK=$ANDROID_NDK"
-
-          echo
-          echo "Java:"
-          java -version
-
-          echo
           echo "Python:"
           python --version
 
-          echo
+          echo "Java:"
+          java -version
+
           echo "Buildozer:"
           buildozer --version
 
-          echo
-          echo "ADB:"
-          "$ANDROID_HOME/platform-tools/adb" version
-
-          echo
-          echo "Legacy sdkmanager:"
-          test -x "$ANDROID_HOME/tools/bin/sdkmanager"
-          "$ANDROID_HOME/tools/bin/sdkmanager" \
-            --sdk_root="$ANDROID_HOME" \
-            --list_installed
-
-          echo
-          echo "Build Tools:"
-          ls -la "$ANDROID_HOME/build-tools/"
-
-          echo
-          echo "AIDL 35:"
-          test -x "$ANDROID_HOME/build-tools/35.0.0/aidl"
-          "$ANDROID_HOME/build-tools/35.0.0/aidl" --version || true
-
-          echo
-          echo "AIDL 37:"
-          test -x "$ANDROID_HOME/build-tools/37.0.0/aidl"
-          "$ANDROID_HOME/build-tools/37.0.0/aidl" --version || true
-
-          echo
-          echo "Android API 36:"
+          echo "SDK:"
           test -d "$ANDROID_HOME/platforms/android-36"
 
-          echo
+          echo "Build Tools:"
+          test -x "$ANDROID_HOME/build-tools/36.0.0/aapt2"
+          "$ANDROID_HOME/build-tools/36.0.0/aapt2" version
+
           echo "NDK:"
-          test -d "$ANDROID_HOME/ndk/28.2.13676358"
+          test -d "$ANDROID_NDK"
+          grep "Pkg.Revision" "$ANDROID_NDK/source.properties"
 
-          echo
-          echo "Android toolchain verification successful."
+          echo "Toolchain verification successful."
 
-      - name: Clean previous Buildozer state
+      - name: Clean Buildozer state
+        shell: bash
         run: |
+          set -euxo pipefail
           rm -rf .buildozer
+          rm -rf bin
 
       - name: Build Tarot APK
+        shell: bash
         run: |
+          set -euxo pipefail
           buildozer -v android debug
 
       - name: Verify APK
         shell: bash
         run: |
-          set -e
+          set -euxo pipefail
 
-          echo "APK files:"
-          find bin -maxdepth 1 -type f -name "*.apk" -print
-
-          APK="$(find bin -maxdepth 1 -type f -name "*.apk" -print -quit)"
+          APK="$(find bin -maxdepth 1 -type f -name '*.apk' -print -quit)"
 
           test -n "$APK"
 
-          echo
-          echo "APK:"
+          echo "APK: $APK"
           ls -lh "$APK"
-
-          echo
-          echo "APK information:"
           file "$APK"
 
       - name: Upload APK artifact
