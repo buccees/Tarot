@@ -29,3 +29,5 @@ A ten-card reading providing a detailed examination of a situation, including th
 ## Tarot App
 
 The Tarot application runs directly in your browser with no installation required.
+
+Optionally, I am also working on my workflow file to compile an installable python app for offline use. These creative cards are not just fun. They are FUNCTIONAL!
