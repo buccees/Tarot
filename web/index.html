@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+    <meta name="theme-color" content="#000000">
+
+    <title>Custom Art Tarot</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main id="app">
+
+        <!-- =========================
+             MENU
+             ========================= -->
+        <section id="menu-screen" class="screen">
+            <div class="menu-container">
+
+                <h1>Choose Your Reading</h1>
+
+                <div class="spread-grid">
+
+                    <button
+                        class="spread-card"
+                        data-spread="Single Card"
+                        data-count="1"
+                    >
+                        <img
+                            src="../images/rider-waite-tarot/CardBacks.jpg"
+                            alt=""
+                        >
+                        <span class="spread-overlay">
+                            <strong>Single Card</strong>
+                            <small>One card for focus</small>
+                        </span>
+                    </button>
+
+                    <button
+                        class="spread-card"
+                        data-spread="Three-Card"
+                        data-count="3"
+                    >
+                        <img
+                            src="../images/rider-waite-tarot/CardBacks.jpg"
+                            alt=""
+                        >
+                        <span class="spread-overlay">
+                            <strong>Three-Card</strong>
+                            <small>Past • Present • Future</small>
+                        </span>
+                    </button>
+
+                    <button
+                        class="spread-card"
+                        data-spread="Five-Card"
+                        data-count="5"
+                    >
+                        <img
+                            src="../images/rider-waite-tarot/CardBacks.jpg"
+                            alt=""
+                        >
+                        <span class="spread-overlay">
+                            <strong>Five-Card</strong>
+                            <small>Deeper insight</small>
+                        </span>
+                    </button>
+
+                    <button
+                        class="spread-card"
+                        data-spread="Celtic Cross"
+                        data-count="10"
+                    >
+                        <img
+                            src="../images/rider-waite-tarot/CardBacks.jpg"
+                            alt=""
+                        >
+                        <span class="spread-overlay">
+                            <strong>Celtic Cross</strong>
+                            <small>Complete reading</small>
+                        </span>
+                    </button>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================
+             READING
+             ========================= -->
+        <section id="reading-screen" class="screen hidden">
+
+            <div class="reading-container">
+
+                <div id="reading-info" class="reading-info"></div>
+
+                <button
+                    id="current-card"
+                    class="card-button"
+                    aria-label="Reveal card"
+                >
+                    <img
+                        id="card-image"
+                        src="../images/rider-waite-tarot/CardBacks.jpg"
+                        alt="Tarot card"
+                    >
+                </button>
+
+                <div id="instruction" class="instruction">
+                    Tap the card to reveal
+                </div>
+
+                <div id="reading-log" class="reading-log">
+                    <em>Revealed cards will appear here</em>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
