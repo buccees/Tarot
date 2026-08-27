@@ -5,7 +5,7 @@ package.name = pictarotapp
 package.domain = com.buccees
 
 source.dir = .
-source.include_exts = py,png,jpg,jpeg,kv,atlas,json,txt
+source.include_exts = py,png,jpg,jpeg,atlas,kv,json,txt
 
 version = 1.0
 
@@ -16,10 +16,7 @@ icon.filename = images/AppIcons/playstore.png
 
 requirements = python3,kivy
 
-[buildozer]
-
-log_level = 2
-
+# Android configuration
 android.skip_update = True
 
 android.sdk_path = /home/runner/android-sdk
@@ -35,3 +32,8 @@ android.permissions = INTERNET
 
 android.extract_native_libs = False
 android.accept_sdk_license = True
+
+
+[buildozer]
+
+log_level = 2
