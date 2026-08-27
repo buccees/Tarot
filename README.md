@@ -1,0 +1,31 @@
+# Tarot
+
+[![Open Tarot](https://buccees.github.io/Tarot/images/rider-waite-tarot/CardBacks.jpg)](https://buccees.github.io/Tarot/)
+
+## Abandon all hope, ye who enter here.
+
+Click the card above to enter the Tarot app.
+
+A simple Tarot reading app using the Rider-Waite Tarot deck. Choose a spread, draw your cards, and explore the meaning of your reading.
+
+## Spreads
+
+### Single Card
+
+A one-card reading for a quick answer, daily reflection, or general guidance.
+
+### Three Card
+
+A three-card reading covering the Past, Present, and Future.
+
+### Five Card
+
+A five-card reading providing a broader look at a situation, including the present situation, influences, challenges, advice, and outcome.
+
+### Celtic Cross
+
+A ten-card reading providing a detailed examination of a situation, including the present, challenges, past influences, future developments, attitudes, outside influences, hopes and fears, and likely outcome.
+
+## Tarot App
+
+The Tarot application runs directly in your browser with no installation required.
