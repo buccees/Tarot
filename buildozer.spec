@@ -33,6 +33,7 @@ android.permissions = INTERNET
 android.extract_native_libs = False
 android.accept_sdk_license = True
 
+p4a.branch = v2026.05.09
 
 [buildozer]
 
