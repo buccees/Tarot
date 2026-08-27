@@ -63,6 +63,7 @@ jobs:
           echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
           echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV"
           echo "ANDROIDSDK=$ANDROID_HOME" >> "$GITHUB_ENV"
+
           echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
           echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
 
@@ -74,7 +75,8 @@ jobs:
 
           mkdir -p "$ANDROID_HOME/cmdline-tools/latest"
 
-          cp -r /tmp/android-cmdline/cmdline-tools/* \
+          cp -r \
+            /tmp/android-cmdline/cmdline-tools/* \
             "$ANDROID_HOME/cmdline-tools/latest/"
 
           SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
@@ -107,6 +109,20 @@ jobs:
             --sdk_root="$ANDROID_HOME" \
             --list_installed
 
+          echo "Creating legacy SDK tools path for Buildozer..."
+
+          rm -rf "$ANDROID_HOME/tools"
+
+          ln -s \
+            "$ANDROID_HOME/cmdline-tools/latest" \
+            "$ANDROID_HOME/tools"
+
+          echo "Verifying Buildozer sdkmanager path..."
+
+          test -x "$ANDROID_HOME/tools/bin/sdkmanager"
+
+          "$ANDROID_HOME/tools/bin/sdkmanager" --version
+
       - name: Set up Android NDK r28c
         shell: bash
         run: |
@@ -121,11 +137,14 @@ jobs:
             "https://dl.google.com/android/repository/android-ndk-r28c-linux.zip" \
             -O /tmp/android-ndk.zip
 
-          unzip -q /tmp/android-ndk.zip -d /tmp/android-ndk
+          unzip -q \
+            /tmp/android-ndk.zip \
+            -d /tmp/android-ndk
 
           rm -rf "$ANDROID_HOME/ndk/$NDK_VERSION"
 
-          mv /tmp/android-ndk/android-ndk-r28c \
+          mv \
+            /tmp/android-ndk/android-ndk-r28c \
             "$ANDROID_HOME/ndk/$NDK_VERSION"
 
           echo "ANDROID_NDK=$ANDROID_HOME/ndk/$NDK_VERSION" >> "$GITHUB_ENV"
@@ -168,6 +187,10 @@ jobs:
             --list_installed
 
           echo
+          echo "Legacy sdkmanager path:"
+          "$ANDROID_HOME/tools/bin/sdkmanager" --version
+
+          echo
           echo "Build Tools:"
           ls -la "$ANDROID_HOME/build-tools/"
 
@@ -197,26 +220,18 @@ jobs:
         run: |
           set -e
 
-          export ANDROID_HOME="$HOME/android-sdk"
-          export ANDROID_SDK_ROOT="$HOME/android-sdk"
-          export ANDROIDSDK="$HOME/android-sdk"
-
-          export ANDROID_NDK="$HOME/android-sdk/ndk/28.2.13676358"
-          export ANDROID_NDK_ROOT="$HOME/android-sdk/ndk/28.2.13676358"
-          export ANDROIDNDK="$HOME/android-sdk/ndk/28.2.13676358"
-
-          export ANDROIDAPI="36"
-          export NDKAPI="24"
+          ANDROID_HOME="$HOME/android-sdk"
+          ANDROID_NDK="$HOME/android-sdk/ndk/28.2.13676358"
 
           {
             echo "ANDROID_HOME=$ANDROID_HOME"
-            echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-            echo "ANDROIDSDK=$ANDROIDSDK"
+            echo "ANDROID_SDK_ROOT=$ANDROID_HOME"
+            echo "ANDROIDSDK=$ANDROID_HOME"
             echo "ANDROID_NDK=$ANDROID_NDK"
-            echo "ANDROID_NDK_ROOT=$ANDROID_NDK_ROOT"
-            echo "ANDROIDNDK=$ANDROIDNDK"
-            echo "ANDROIDAPI=$ANDROIDAPI"
-            echo "NDKAPI=$NDKAPI"
+            echo "ANDROID_NDK_ROOT=$ANDROID_NDK"
+            echo "ANDROIDNDK=$ANDROID_NDK"
+            echo "ANDROIDAPI=36"
+            echo "NDKAPI=24"
           } >> "$GITHUB_ENV"
 
       - name: Clean previous Buildozer state
@@ -224,7 +239,10 @@ jobs:
           rm -rf .buildozer
 
       - name: Build Tarot APK
+        shell: bash
         run: |
+          set -e
+
           buildozer -v android debug
 
       - name: Verify APK
