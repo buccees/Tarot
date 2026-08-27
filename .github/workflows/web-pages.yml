@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 permissions:
@@ -20,44 +19,74 @@ jobs:
   deploy:
     runs-on: ubuntu-22.04
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build website
-        shell: bash
+      - name: Prepare website
         run: |
           set -eux
 
           rm -rf site
-          mkdir -p site
+          mkdir -p site/images
 
           cp web/index.html site/index.html
           cp web/style.css site/style.css
           cp web/app.js site/app.js
 
-          mkdir -p site/images
-
           cp -R images/rider-waite-tarot \
             site/images/rider-waite-tarot
-
-          echo "Website contents:"
-          find site -type f | sort
-
-          echo "Card image count:"
-          find site/images/rider-waite-tarot \
-            -type f | wc -l
 
           test -f site/index.html
           test -f site/style.css
           test -f site/app.js
           test -f site/images/rider-waite-tarot/CardBacks.jpg
 
-      - name: Configure GitHub Pages
+          echo "Website:"
+          find site -type f | sort
+
+      - name: Create GitHub Pages site if necessary
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -eux
+
+          RESPONSE=$(curl \
+            -sS \
+            -o /tmp/pages-response.json \
+            -w "%{http_code}" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${REPO}/pages")
+
+          echo "Existing Pages API response: HTTP ${RESPONSE}"
+          cat /tmp/pages-response.json || true
+
+          if [ "${RESPONSE}" = "404" ]; then
+            echo "Pages site does not exist. Creating it..."
+
+            curl \
+              -sS \
+              -f \
+              -X POST \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              -H "Content-Type: application/json" \
+              "https://api.github.com/repos/${REPO}/pages" \
+              -d '{"build_type":"workflow"}'
+
+          elif [ "${RESPONSE}" -ge 200 ] && [ "${RESPONSE}" -lt 300 ]; then
+            echo "Pages site already exists."
+
+          else
+            echo "Unexpected Pages API response: HTTP ${RESPONSE}"
+            exit 1
+          fi
+
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
@@ -65,6 +94,6 @@ jobs:
         with:
           path: site
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
