@@ -25,7 +25,6 @@ jobs:
       - name: Install system dependencies
         run: |
           set -eux
-
           sudo apt-get update
 
           sudo apt-get install -y \
@@ -109,7 +108,7 @@ jobs:
             --sdk_root="$ANDROID_HOME" \
             "platform-tools" \
             "platforms;android-36" \
-            "build-tools;35.0.0"
+            "build-tools;36.0.0"
 
           echo "Creating legacy sdkmanager path for Buildozer..."
 
@@ -176,7 +175,6 @@ jobs:
             echo "ANDROID_HOME=$ANDROID_HOME"
             echo "ANDROID_SDK_ROOT=$ANDROID_HOME"
             echo "ANDROIDSDK=$ANDROID_HOME"
-
             echo "ANDROID_NDK=$ANDROID_HOME/ndk/28.2.13676358"
             echo "ANDROID_NDK_ROOT=$ANDROID_HOME/ndk/28.2.13676358"
             echo "ANDROIDNDK=$ANDROID_HOME/ndk/28.2.13676358"
@@ -214,14 +212,13 @@ jobs:
           echo "ANDROIDSDK=$ANDROIDSDK"
 
           test -d "$ANDROID_HOME/platforms/android-36"
-          test -d "$ANDROID_HOME/build-tools/35.0.0"
+          test -d "$ANDROID_HOME/build-tools/36.0.0"
           test -x "$ANDROID_HOME/platform-tools/adb"
 
           "$ANDROID_HOME/platform-tools/adb" version
 
           echo
           echo "=== SDK manager ==="
-
           test -x "$ANDROID_HOME/tools/bin/sdkmanager"
 
           "$ANDROID_HOME/tools/bin/sdkmanager" \
@@ -229,8 +226,13 @@ jobs:
             --list_installed
 
           echo
-          echo "=== NDK ==="
+          echo "=== Build Tools ==="
+          echo "Expected Build Tools: 36.0.0"
+          test -d "$ANDROID_HOME/build-tools/36.0.0"
+          ls -la "$ANDROID_HOME/build-tools/36.0.0"
 
+          echo
+          echo "=== NDK ==="
           echo "ANDROID_NDK=$ANDROID_NDK"
 
           test -d "$ANDROID_NDK"
@@ -269,6 +271,7 @@ jobs:
           set -eux
 
           echo "APK files:"
+
           find bin \
             -maxdepth 1 \
             -type f \
