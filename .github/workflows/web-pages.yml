@@ -36,7 +36,7 @@ jobs:
             node --check "$file"
           done < <(find web -type f -name '*.js' -print0 | sort -z)
 
-      - name: Validate web references and required runtime files
+      - name: Validate web references and script order
         shell: bash
         run: |
           set -euxo pipefail
@@ -51,7 +51,7 @@ jobs:
           node --input-type=module <<'NODE'
           import { readFileSync, existsSync } from "node:fs";
           const html = readFileSync("web/index.html", "utf8");
-          const scripts = [...html.matchAll(/<script\\b[^>]*\\bsrc=["']([^"']+)["'][^>]*><\\/script>/gi)].map(m => m[1]);
+          const scripts = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*><\/script>/gi)].map(m => m[1]);
           const expected = [
             "interpretations.js?v=20260901-6",
             "app.js?v=20260901-6",
@@ -85,7 +85,7 @@ jobs:
       - name: Run browser integration tests
         run: |
           set -eux
-          npx --yes playwright@1.55.0 test tests/web-app.spec.mjs
+          npx --yes playwright@1.55.0 test --config=playwright.config.mjs tests/web-app.spec.mjs
 
   deploy:
     needs: validate
