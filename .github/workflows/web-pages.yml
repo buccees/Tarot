@@ -46,6 +46,7 @@ jobs:
           test -f web/app.js
           test -f web/interpretations.js
           test -f web/reading-interpretations.js
+          test -f web/pdf.js
           test -f web/dice.js
           test -f web/favicon.svg
           test -f images/rider-waite-tarot/CardBacks.jpg
@@ -58,6 +59,7 @@ jobs:
             "interpretations.js?v=20260901-6",
             "app.js?v=20260901-6",
             "reading-interpretations.js?v=20260901-5",
+            "pdf.js?v=20260901-1",
             "dice.js?v=20260901-2"
           ];
           if (JSON.stringify(scripts) !== JSON.stringify(expected)) {
@@ -131,6 +133,7 @@ jobs:
           test -f site/app.js
           test -f site/interpretations.js
           test -f site/reading-interpretations.js
+          test -f site/pdf.js
           test -f site/images/rider-waite-tarot/CardBacks.jpg
           find site -type f | sort
       - name: Create GitHub Pages site if necessary
