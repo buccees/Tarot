@@ -42,9 +42,12 @@ jobs:
           set -euxo pipefail
           test -f web/index.html
           test -f web/style.css
+          test -f web/dice.css
           test -f web/app.js
           test -f web/interpretations.js
           test -f web/reading-interpretations.js
+          test -f web/dice.js
+          test -f web/favicon.svg
           test -f images/rider-waite-tarot/CardBacks.jpg
 
           node --input-type=module <<'NODE'
@@ -54,14 +57,24 @@ jobs:
           const expected = [
             "interpretations.js?v=20260901-6",
             "app.js?v=20260901-6",
-            "reading-interpretations.js?v=20260901-4"
+            "reading-interpretations.js?v=20260901-5",
+            "dice.js?v=20260901-2"
           ];
           if (JSON.stringify(scripts) !== JSON.stringify(expected)) {
             throw new Error(`Unexpected script order. Found: ${JSON.stringify(scripts)}`);
           }
+          const styles = [...html.matchAll(/<link\b[^>]*\brel=["']stylesheet["'][^>]*\bhref=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]);
+          const expectedStyles = ["style.css?v=20260901-8", "dice.css?v=20260901-2"];
+          if (JSON.stringify(styles) !== JSON.stringify(expectedStyles)) {
+            throw new Error(`Unexpected stylesheet order. Found: ${JSON.stringify(styles)}`);
+          }
           for (const src of scripts) {
             const path = src.split("?", 1)[0];
             if (!existsSync(`web/${path}`)) throw new Error(`Missing script referenced by HTML: ${path}`);
+          }
+          for (const href of styles) {
+            const path = href.split("?", 1)[0];
+            if (!existsSync(`web/${path}`)) throw new Error(`Missing stylesheet referenced by HTML: ${path}`);
           }
           NODE
 
@@ -72,8 +85,14 @@ jobs:
           mkdir -p site/images
           cp web/index.html site/index.html
           cp web/style.css site/style.css
+          cp web/dice.css site/dice.css
+          cp web/favicon.svg site/favicon.svg
           cp web/*.js site/
           cp -R images/rider-waite-tarot site/images/rider-waite-tarot
+          test -f site/index.html
+          test -f site/dice.css
+          test -f site/dice.js
+          test -f site/favicon.svg
           test -f site/images/rider-waite-tarot/CardBacks.jpg
 
       - name: Install browser test dependencies
@@ -100,10 +119,15 @@ jobs:
           mkdir -p site/images
           cp web/index.html site/index.html
           cp web/style.css site/style.css
+          cp web/dice.css site/dice.css
+          cp web/favicon.svg site/favicon.svg
           cp web/*.js site/
           cp -R images/rider-waite-tarot site/images/rider-waite-tarot
           test -f site/index.html
           test -f site/style.css
+          test -f site/dice.css
+          test -f site/dice.js
+          test -f site/favicon.svg
           test -f site/app.js
           test -f site/interpretations.js
           test -f site/reading-interpretations.js

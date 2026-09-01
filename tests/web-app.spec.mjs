@@ -17,6 +17,7 @@ test.describe("Tarot web app integrity", () => {
     await expect(page.locator("h1")).toHaveText("Determine your fate.");
     await expect(page.locator(".spread-card")).toHaveCount(4);
     await expect(page.locator("#current-card")).toHaveCount(1);
+    await expect(page.locator(".die-button")).toHaveCount(8);
 
     const resolverAvailable = await page.evaluate(() => typeof window.getInterpretation === "function");
     expect(resolverAvailable).toBe(true);
@@ -88,5 +89,40 @@ test.describe("Tarot web app integrity", () => {
     await expect(page.locator(".reading-interpretation")).toHaveCount(2);
     await expect(page.locator(".reading-interpretation").first()).toContainText("Significator");
     await expect(page.locator(".reading-interpretation").nth(1)).not.toHaveText("");
+  });
+
+  test("provides all dice, rolls repeatedly, and keeps valid results", async ({ page }) => {
+    await page.goto("/index.html", { waitUntil: "networkidle" });
+
+    const dice = [2, 4, 6, 8, 10, 12, 20, 100];
+    await expect(page.locator(".die-button")).toHaveCount(dice.length);
+
+    for (const sides of dice) {
+      const button = page.locator(`.die-button[data-sides="${sides}"]`);
+      await expect(button).toHaveCount(1);
+      await button.click();
+      const result = page.locator(".dice-result").first();
+      await expect(result.locator(".dice-result-name")).toHaveText(`d${sides}`);
+      const value = await result.locator(".dice-result-value").innerText();
+      if (sides === 2) {
+        expect(["Heads", "Tails"]).toContain(value);
+      } else {
+        const numericValue = Number(value);
+        expect(Number.isInteger(numericValue)).toBe(true);
+        expect(numericValue).toBeGreaterThanOrEqual(1);
+        expect(numericValue).toBeLessThanOrEqual(sides);
+      }
+    }
+
+    await page.locator('.die-button[data-sides="20"]').click();
+    await page.locator('.die-button[data-sides="20"]').click();
+    await expect(page.locator(".dice-result")).toHaveCount(10);
+
+    await expect(page.locator("#dice-panel")).toBeVisible();
+    const panelBox = await page.locator("#dice-panel").boundingBox();
+    const appBox = await page.locator(".menu-container").boundingBox();
+    expect(panelBox).not.toBeNull();
+    expect(appBox).not.toBeNull();
+    expect(panelBox.x + panelBox.width).toBeLessThanOrEqual(appBox.x + 1);
   });
 });

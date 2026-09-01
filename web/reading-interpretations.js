@@ -7,13 +7,6 @@
  * the application's 78-card Rider-Waite-Smith vocabulary. The prose below
  * is original application text: it uses traditional card themes and the
  * specific job of the spread position rather than copying modern websites.
- *
- * Research foundation:
- * - A. E. Waite, The Pictorial Key to the Tarot (1911), public domain.
- * - Tarotoo Tarot Card Meanings dataset (2026), MIT License, used as a
- *   modern structured cross-check for upright/reversed vocabulary.
- * - Pro Bono Tarot Guild, RWS Cards in Context, used as a modern reference
- *   for position-specific interpretation.
  */
 
 const CONTEXTUAL_POSITION_PURPOSES = {
@@ -74,28 +67,16 @@ function contextualPosition(spread, position) {
 function contextualOrientation(orientation) {
     return orientation === "Reversed"
         ? "Reversed, the card's energy may be blocked, delayed, internalized, distorted, exaggerated, or expressed through its more difficult side. A reversal does not automatically make the card negative; it changes how the card's central energy is operating here."
-        : "Upright, the card's central energy is available to express itself more directly. The position determines where that energy belongs in the reading."
+        : "Upright, the card's central energy is available to express itself more directly. The position determines where that energy belongs in the reading.";
 }
 
 function contextualPositionAdvice(position) {
-    if (["challenge", "crosses"].includes(position)) {
-        return "Read this card as the part of the situation that requires recognition or conscious response. Its difficult expression can describe the obstacle, while its healthier expression can suggest the quality needed to meet it.";
-    }
-    if (["guidance", "advice"].includes(position)) {
-        return "Read this as a principle to consider rather than a command. Ask what this card's qualities would look like as a deliberate choice, and what happens when those qualities are avoided, exaggerated, or misunderstood.";
-    }
-    if (["outcome", "potential"].includes(position)) {
-        return "Here the card describes a direction produced by the forces already present. It is a likely pattern rather than an unavoidable fate; choices and circumstances can change how that pattern unfolds.";
-    }
-    if (["you", "self", "other", "environment", "current"].includes(position)) {
-        return "Here the card can describe an attitude, role, behavior, or surrounding influence. Consider whether it is showing what someone is doing, experiencing, or being asked to embody.";
-    }
-    if (["past", "recent", "behind"].includes(position)) {
-        return "Because this is a past-facing position, the card describes an influence that has already entered the story and may still be leaving its imprint on the present.";
-    }
-    if (["future", "near", "before", "developing"].includes(position)) {
-        return "Because this is a future-facing position, the card describes an influence that may become more visible as the situation develops; it is a direction of possibility, not a fixed guarantee.";
-    }
+    if (["challenge", "crosses"].includes(position)) return "Read this card as the part of the situation that requires recognition or conscious response. Its difficult expression can describe the obstacle, while its healthier expression can suggest the quality needed to meet it.";
+    if (["guidance", "advice"].includes(position)) return "Read this as a principle to consider rather than a command. Ask what this card's qualities would look like as a deliberate choice, and what happens when those qualities are avoided, exaggerated, or misunderstood.";
+    if (["outcome", "potential"].includes(position)) return "Here the card describes a direction produced by the forces already present. It is a likely pattern rather than an unavoidable fate; choices and circumstances can change how that pattern unfolds.";
+    if (["you", "self", "other", "environment", "current"].includes(position)) return "Here the card can describe an attitude, role, behavior, or surrounding influence. Consider whether it is showing what someone is doing, experiencing, or being asked to embody.";
+    if (["past", "recent", "behind"].includes(position)) return "Because this is a past-facing position, the card describes an influence that has already entered the story and may still be leaving its imprint on the present.";
+    if (["future", "near", "before", "developing"].includes(position)) return "Because this is a future-facing position, the card describes an influence that may become more visible as the situation develops; it is a direction of possibility, not a fixed guarantee.";
     return "The position gives this card a specific job in the story, so the same card would carry a different emphasis if it appeared elsewhere in the spread.";
 }
 
@@ -109,7 +90,6 @@ function buildContextualInterpretation(spread, position, card, orientation) {
     return `${first} ${second} ${third} ${fourth}`;
 }
 
-/* Expose the complete resolver used by the reading engine. */
 window.getInterpretation = buildContextualInterpretation;
 window.TAROT_CONTEXTUAL_DATASET = {
     cardCount: 78,
@@ -122,10 +102,6 @@ window.TAROT_CONTEXTUAL_DATASET = {
     ]
 };
 
-/*
- * Presentation layer: keep every completed interpretation below the single
- * horizontal separator, in draw order, without changing the card layout.
- */
 (function () {
     const currentCard = document.getElementById("current-card");
     const cardInterpretation = document.getElementById("card-interpretation");
@@ -169,7 +145,6 @@ window.TAROT_CONTEXTUAL_DATASET = {
         }
     }
 
-    currentCard.addEventListener("click", captureVisibleInterpretation, true);
     currentCard.addEventListener("click", () => {
         window.setTimeout(() => {
             captureVisibleInterpretation();

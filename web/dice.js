@@ -15,8 +15,14 @@ function formatDieResult(sides, value) {
 
 function addDiceResult(sides, value) {
     const entry = document.createElement("div");
+    const name = document.createElement("span");
+    const result = document.createElement("span");
     entry.className = "dice-result";
-    entry.innerHTML = `<span class="dice-result-name">d${sides}</span><span class="dice-result-value">${formatDieResult(sides, value)}</span>`;
+    name.className = "dice-result-name";
+    result.className = "dice-result-value";
+    name.textContent = `d${sides}`;
+    result.textContent = formatDieResult(sides, value);
+    entry.append(name, result);
     diceHistory.prepend(entry);
     while (diceHistory.children.length > MAX_DICE_HISTORY) diceHistory.lastElementChild.remove();
 }

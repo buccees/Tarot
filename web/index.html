@@ -7,13 +7,13 @@
     <title>TAROT</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=20260901-1">
     <link rel="stylesheet" href="style.css?v=20260901-8">
-    <link rel="stylesheet" href="dice.css?v=20260901-1">
+    <link rel="stylesheet" href="dice.css?v=20260901-2">
 </head>
 <body>
-    <aside id="dice-panel" class="dice-panel" aria-label="Dice rollers">
+    <aside id="dice-panel" class="dice-panel">
         <div class="dice-panel-inner">
             <div class="dice-title">Dice</div>
-            <div class="dice-buttons" role="group" aria-label="Roll a die">
+            <div class="dice-buttons">
                 <button type="button" class="die-button" data-sides="2" aria-label="Roll a d2 coin">d2 <span>Coin</span></button>
                 <button type="button" class="die-button" data-sides="4">d4</button>
                 <button type="button" class="die-button" data-sides="6">d6</button>
@@ -23,7 +23,7 @@
                 <button type="button" class="die-button" data-sides="20">d20</button>
                 <button type="button" class="die-button" data-sides="100">d100</button>
             </div>
-            <div id="dice-history" class="dice-history" aria-live="polite" aria-label="Dice results"></div>
+            <div id="dice-history" class="dice-history" aria-live="polite"></div>
         </div>
     </aside>
     <main id="app">
@@ -61,7 +61,7 @@
     </main>
     <script src="interpretations.js?v=20260901-6"></script>
     <script src="app.js?v=20260901-6"></script>
-    <script src="reading-interpretations.js?v=20260901-4"></script>
-    <script src="dice.js?v=20260901-1"></script>
+    <script src="reading-interpretations.js?v=20260901-5"></script>
+    <script src="dice.js?v=20260901-2"></script>
 </body>
 </html>
