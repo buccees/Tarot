@@ -58,7 +58,7 @@ test.describe("Tarot web app integrity", () => {
     await expect(page.locator(".reading-interpretation").nth(1)).not.toHaveText("");
   });
 
-  test("offers all five-card layouts and preserves the Celtic Cross significator flow", async ({ page }) => {
+  test("offers all five-card layouts, detects completion, and preserves the Celtic Cross significator flow", async ({ page }) => {
     await page.goto("/index.html", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Five-Card/i }).click();
     await expect(page.locator(".spread-option")).toHaveCount(6);
@@ -73,8 +73,11 @@ test.describe("Tarot web app integrity", () => {
       await page.locator("#current-card").click();
     }
     await page.locator("#current-card").click();
-    await expect(page.locator("#menu-screen")).toBeVisible();
+    await expect(page.locator("#reading-complete")).toBeVisible();
+    await expect(page.locator("#download-reading-pdf")).toBeVisible();
+    await expect(page.locator("#menu-screen")).toBeHidden();
 
+    await page.goto("/index.html", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Celtic Cross/i }).click();
     await expect(page.locator("#reading-info")).toContainText("Significator");
 
