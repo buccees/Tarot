@@ -45,7 +45,6 @@ jobs:
           test -f web/app.js
           test -f web/interpretations.js
           test -f web/reading-interpretations.js
-          test -f web/presentation-fix.js
           test -f images/rider-waite-tarot/CardBacks.jpg
 
           node --input-type=module <<'NODE'
@@ -55,8 +54,7 @@ jobs:
           const expected = [
             "interpretations.js?v=20260901-6",
             "app.js?v=20260901-6",
-            "reading-interpretations.js?v=20260901-3",
-            "presentation-fix.js?v=20260901-2"
+            "reading-interpretations.js?v=20260901-4"
           ];
           if (JSON.stringify(scripts) !== JSON.stringify(expected)) {
             throw new Error(`Unexpected script order. Found: ${JSON.stringify(scripts)}`);
@@ -108,7 +106,6 @@ jobs:
           test -f site/app.js
           test -f site/interpretations.js
           test -f site/reading-interpretations.js
-          test -f site/presentation-fix.js
           test -f site/images/rider-waite-tarot/CardBacks.jpg
           find site -type f | sort
       - name: Create GitHub Pages site if necessary
