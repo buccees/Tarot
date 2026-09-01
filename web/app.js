@@ -144,12 +144,15 @@ function revealSignificator() {
     cardImage.src = cardImagePath(state.significator); cardImage.alt = `${state.significator} (${state.significatorOrientation})`; currentCard.classList.toggle("reversed", state.significatorOrientation === "Reversed");
     instruction.textContent = `${state.significator}\n(${state.significatorOrientation})\n\nTap to begin the ten-card Cross`;
     interpretationTitle.textContent = `Significator — ${state.significator} (${state.significatorOrientation})`;
-    interpretationText.textContent = `${capitalize(cardTheme(state.significator, state.significatorOrientation))}. As the Significator, this card represents the person, matter, or central energy at the heart of the reading.`;
-    cardInterpretation.classList.remove("hidden"); state.readingLog = [{ position: "Significator", card: state.significator, orientation: state.significatorOrientation }]; refreshReadingLog();
+    const displayedInterpretation = `${capitalize(cardTheme(state.significator, state.significatorOrientation))}. As the Significator, this card represents the person, matter, or central energy at the heart of the reading.`;
+    interpretationText.textContent = displayedInterpretation;
+    cardInterpretation.classList.remove("hidden");
+    state.readingLog = [{ position: "Significator", card: state.significator, orientation: state.significatorOrientation, interpretation: displayedInterpretation }];
+    refreshReadingLog();
 }
 function showCard() {
     const position = currentPosition(); if (!position) return;
-    state.currentRevealed = false; positionHeader(position); 
+    state.currentRevealed = false; positionHeader(position);
     cardImage.src = CARD_BACK; cardImage.alt = "Tarot card back"; currentCard.classList.remove("reversed"); instruction.textContent = "Tap the card to reveal"; cardInterpretation.classList.add("hidden"); refreshReadingLog();
 }
 function revealCard() {
@@ -161,8 +164,12 @@ function revealCard() {
     const isLast = state.cardIndex + 1 >= state.currentCards.length;
     instruction.textContent = `${cardName}\n(${orientation})\n\n${isLast ? "Tap to return to menu" : "Tap for next card"}`;
     const interpretation = getInterpretation(state.currentSpreadId, position.id, cardName, orientation);
-    interpretationTitle.textContent = `${position.label} — ${cardName} (${orientation})`; interpretationText.textContent = interpretation || "This position does not yet have a contextual interpretation."; cardInterpretation.classList.remove("hidden");
-    state.readingLog.push({ position: position.label, card: cardName, orientation }); refreshReadingLog();
+    const displayedInterpretation = interpretation || "This position does not yet have a contextual interpretation.";
+    interpretationTitle.textContent = `${position.label} — ${cardName} (${orientation})`;
+    interpretationText.textContent = displayedInterpretation;
+    cardInterpretation.classList.remove("hidden");
+    state.readingLog.push({ position: position.label, card: cardName, orientation, interpretation: displayedInterpretation });
+    refreshReadingLog();
 }
 function nextCardOrMenu() { state.cardIndex += 1; if (state.cardIndex >= state.currentCards.length) { showMenu(); return; } showCard(); }
 function refreshReadingLog() {
