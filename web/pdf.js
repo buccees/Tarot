@@ -44,9 +44,25 @@
         `;
         const cards = report.querySelector(".pdf-report-cards");
 
+        // Try to reuse the rendered interpretation text (the reading-log) when available.
+        const renderedLog = document.getElementById("reading-log");
+        const renderedEntries = renderedLog ? [...renderedLog.querySelectorAll(".reading-interpretation")].map(node => {
+            const title = node.querySelector("h3")?.textContent?.trim() || "";
+            const text = node.querySelector("p")?.textContent?.trim() || "";
+            return { title, text };
+        }) : [];
+
+        function renderedTextFor(entry, position) {
+            const expectedTitle = `${position?.label || entry.position} — ${entry.card} (${entry.orientation})`;
+            const found = renderedEntries.find(e => e.title === expectedTitle);
+            return found ? found.text : "";
+        }
+
         state.readingLog.forEach(entry => {
             const position = positionFor(entry);
-            const interpretation = interpretationFor(entry);
+            // Prefer the captured/rendered interpretation text so the PDF matches what the user saw.
+            const renderedText = renderedTextFor(entry, position);
+            const interpretation = renderedText || interpretationFor(entry);
             const item = document.createElement("article");
             item.className = "pdf-report-card";
             item.innerHTML = `
