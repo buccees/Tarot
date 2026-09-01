@@ -20,100 +20,103 @@
             <div class="menu-container">
                 <h1>Determine your fate.</h1>
 
-                <div class="spread-grid">
-
-                    <button
-                        class="spread-card"
-                        data-spread="Single Card"
-                        data-count="1"
-                    >
-                        <img
-                            src="images/rider-waite-tarot/CardBacks.jpg"
-                            alt="Tarot card back"
-                        >
+                <div id="spread-menu" class="spread-grid">
+                    <button class="spread-card" data-spread="Single Card" data-count="1">
+                        <img src="images/rider-waite-tarot/CardBacks.jpg" alt="Tarot card back">
                         <span class="spread-overlay">
                             <strong>Single Card</strong>
                             <small>One card for focus</small>
                         </span>
                     </button>
 
-                    <button
-                        class="spread-card"
-                        data-spread="Three-Card"
-                        data-count="3"
-                    >
-                        <img
-                            src="images/rider-waite-tarot/CardBacks.jpg"
-                            alt="Tarot card back"
-                        >
+                    <button class="spread-card" data-spread="Three-Card" data-count="3">
+                        <img src="images/rider-waite-tarot/CardBacks.jpg" alt="Tarot card back">
                         <span class="spread-overlay">
                             <strong>Three-Card</strong>
                             <small>Past • Present • Future</small>
                         </span>
                     </button>
 
-                    <button
-                        class="spread-card"
-                        data-spread="Five-Card"
-                        data-count="5"
-                    >
-                        <img
-                            src="images/rider-waite-tarot/CardBacks.jpg"
-                            alt="Tarot card back"
-                        >
+                    <button class="spread-card" id="five-card-button" data-spread="Five-Card" data-count="5">
+                        <img src="images/rider-waite-tarot/CardBacks.jpg" alt="Tarot card back">
                         <span class="spread-overlay">
                             <strong>Five-Card</strong>
-                            <small>Deeper insight</small>
+                            <small>Choose a traditional layout</small>
                         </span>
                     </button>
 
-                    <button
-                        class="spread-card"
-                        data-spread="Celtic Cross"
-                        data-count="10"
-                    >
-                        <img
-                            src="images/rider-waite-tarot/CardBacks.jpg"
-                            alt="Tarot card back"
-                        >
+                    <button class="spread-card" data-spread="Celtic Cross" data-count="10">
+                        <img src="images/rider-waite-tarot/CardBacks.jpg" alt="Tarot card back">
                         <span class="spread-overlay">
                             <strong>Celtic Cross</strong>
-                            <small>Complete reading</small>
+                            <small>Complete traditional reading</small>
                         </span>
                     </button>
-
                 </div>
+
+                <section id="five-card-options" class="spread-options hidden" aria-labelledby="five-card-title">
+                    <div class="options-header">
+                        <button id="five-card-back" class="text-button" type="button">← Back</button>
+                        <div>
+                            <h2 id="five-card-title">Five-Card Spreads</h2>
+                            <p>Choose the layout that best fits the question you are asking.</p>
+                        </div>
+                    </div>
+
+                    <div class="option-grid">
+                        <button class="spread-option" data-spread="Five-Card — Situation & Advice">
+                            <strong>Situation &amp; Advice</strong>
+                            <span>For a problem you want to understand and guidance about what to do.</span>
+                        </button>
+
+                        <button class="spread-option" data-spread="Five-Card — Five-Card Cross">
+                            <strong>Five-Card Cross</strong>
+                            <span>For understanding the forces around a situation, including its roots and potential.</span>
+                        </button>
+
+                        <button class="spread-option" data-spread="Five-Card — Expanded Past–Present–Future">
+                            <strong>Expanded Past–Present–Future</strong>
+                            <span>For following a situation through its history, present condition, guidance, and likely direction.</span>
+                        </button>
+
+                        <button class="spread-option" data-spread="Five-Card — Relationship Cross">
+                            <strong>Relationship Cross</strong>
+                            <span>For exploring two perspectives, the foundation of a relationship, its present state, and its direction.</span>
+                        </button>
+
+                        <button class="spread-option" data-spread="Five-Card — Decision / Crossroads">
+                            <strong>Decision / Crossroads</strong>
+                            <span>For a choice between paths, comparing the forces and likely character of each option.</span>
+                        </button>
+
+                        <button class="spread-option" data-spread="Five-Card — Timeline">
+                            <strong>Five-Card Timeline</strong>
+                            <span>For a broader view of how a developing situation may unfold over time.</span>
+                        </button>
+                    </div>
+                </section>
             </div>
         </section>
 
         <section id="reading-screen" class="screen hidden">
-
             <div class="reading-container">
-
                 <div id="reading-info" class="reading-info"></div>
 
-                <button
-                    id="current-card"
-                    class="card-button"
-                    aria-label="Reveal card"
-                >
-                    <img
-                        id="card-image"
-                        src="images/rider-waite-tarot/CardBacks.jpg"
-                        alt="Tarot card"
-                    >
+                <button id="current-card" class="card-button" aria-label="Reveal card">
+                    <img id="card-image" src="images/rider-waite-tarot/CardBacks.jpg" alt="Tarot card">
                 </button>
 
-                <div id="instruction" class="instruction">
-                    Tap the card to reveal
-                </div>
+                <div id="instruction" class="instruction">Tap the card to reveal</div>
+
+                <article id="card-interpretation" class="card-interpretation hidden" aria-live="polite">
+                    <h2 id="interpretation-title"></h2>
+                    <p id="interpretation-text"></p>
+                </article>
 
                 <div id="reading-log" class="reading-log">
                     <em>Revealed cards will appear here</em>
                 </div>
-
             </div>
-
         </section>
 
     </main>
