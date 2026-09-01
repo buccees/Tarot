@@ -44,7 +44,6 @@ test.describe("Tarot web app integrity", () => {
     await page.goto("/index.html", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Three-Card/i }).click();
 
-    // First click reveals card 1. The next click advances to card-2 back.
     await page.locator("#current-card").click();
     const firstInterpretation = await page.locator(".reading-interpretation").first().innerText();
     expect(firstInterpretation.trim().length).toBeGreaterThan(100);
@@ -52,7 +51,6 @@ test.describe("Tarot web app integrity", () => {
     await page.locator("#current-card").click();
     await expect(page.locator("#card-image")).toHaveAttribute("src", /CardBacks\.jpg$/);
 
-    // Third click reveals card 2; card 1 must remain in the results.
     await page.locator("#current-card").click();
     await expect(page.locator(".reading-interpretation")).toHaveCount(2);
     await expect(page.locator(".reading-interpretation").first()).toHaveText(firstInterpretation);
@@ -64,15 +62,11 @@ test.describe("Tarot web app integrity", () => {
     await page.getByRole("button", { name: /Five-Card/i }).click();
     await expect(page.locator(".spread-option")).toHaveCount(6);
 
-    // Select a layout, verify its first position renders, then finish the reading
-    // before navigating back to the spread-selection screen.
     await page.getByRole("button", { name: /Situation & Advice/i }).click();
     await page.locator("#current-card").click();
     await expect(page.locator(".reading-interpretation")).toHaveCount(1);
     await expect(page.locator("#interpretation-text")).not.toHaveText("");
 
-    // A five-card reading advances through five reveal/advance cycles. Complete it
-    // so the app returns to the main menu, then verify the Celtic Cross separately.
     for (let i = 0; i < 4; i += 1) {
       await page.locator("#current-card").click();
       await page.locator("#current-card").click();
@@ -85,12 +79,14 @@ test.describe("Tarot web app integrity", () => {
 
     await page.locator("#current-card").click();
     await expect(page.locator("#interpretation-title")).toContainText("Significator");
+    await expect(page.locator(".reading-interpretation")).toHaveCount(1);
 
     await page.locator("#current-card").click();
     await expect(page.locator("#reading-info")).not.toContainText("Significator");
 
     await page.locator("#current-card").click();
-    await expect(page.locator(".reading-interpretation")).toHaveCount(1);
-    await expect(page.locator("#interpretation-text")).not.toHaveText("");
+    await expect(page.locator(".reading-interpretation")).toHaveCount(2);
+    await expect(page.locator(".reading-interpretation").first()).toContainText("Significator");
+    await expect(page.locator(".reading-interpretation").nth(1)).not.toHaveText("");
   });
 });
