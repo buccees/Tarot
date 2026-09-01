@@ -105,13 +105,12 @@ const SPREADS = {
     },
 
     /*
-     * Waite's published Celtic Cross positions are preserved here.
-     * Waite's original method also used a separately selected Significator;
-     * this implementation keeps the practical ten-card draw while retaining
-     * his position functions for the ten cards that are actually revealed.
+     * Waite's Celtic Cross uses a separately selected Significator.
+     * The Significator is not one of the ten numbered cards in the Cross.
      */
     "Celtic Cross": {
         id: "celtic",
+        significator: true,
         positions: [
             { id: "covers", label: "What Covers" },
             { id: "crosses", label: "What Crosses" },
@@ -134,6 +133,8 @@ const SPREADS = {
 const state = {
     currentCards: [],
     currentOrientations: [],
+    significator: null,
+    significatorOrientation: null,
     currentSpreadName: "",
     currentSpreadId: "",
     currentPositions: [],
@@ -213,6 +214,8 @@ function showMenu() {
 
     state.currentCards = [];
     state.currentOrientations = [];
+    state.significator = null;
+    state.significatorOrientation = null;
     state.currentSpreadName = "";
     state.currentSpreadId = "";
     state.currentPositions = [];
@@ -235,8 +238,26 @@ function startReading(spreadName) {
     const spread = SPREADS[spreadName];
     if (!spread) return;
 
-    state.currentCards = sampleCards(TAROT_CARDS, spread.positions.length);
-    state.currentOrientations = Array.from({ length: spread.positions.length }, randomOrientation);
+    /*
+     * For the Celtic Cross, select the Significator separately first.
+     * It is removed from the pool before the ten Cross cards are drawn,
+     * so the Significator can never duplicate a card in the spread.
+     */
+    if (spread.significator) {
+        const selected = sampleCards(TAROT_CARDS, 11);
+        state.significator = selected[0];
+        state.significatorOrientation = randomOrientation();
+        state.currentCards = selected.slice(1);
+    } else {
+        state.significator = null;
+        state.significatorOrientation = null;
+        state.currentCards = sampleCards(TAROT_CARDS, spread.positions.length);
+    }
+
+    state.currentOrientations = Array.from(
+        { length: spread.positions.length },
+        randomOrientation
+    );
     state.currentSpreadName = spreadName;
     state.currentSpreadId = spread.id;
     state.currentPositions = spread.positions;
@@ -246,7 +267,56 @@ function startReading(spreadName) {
 
     menuScreen.classList.add("hidden");
     readingScreen.classList.remove("hidden");
-    showCard();
+
+    if (spread.significator) {
+        showSignificatorBack();
+    } else {
+        showCard();
+    }
+}
+
+/* =========================
+   SIGNIFICATOR
+   ========================= */
+
+function showSignificatorBack() {
+    state.currentRevealed = false;
+
+    readingInfo.textContent = "Celtic Cross • Significator";
+    cardImage.src = CARD_BACK;
+    cardImage.alt = "Tarot card back";
+    currentCard.classList.remove("reversed");
+    instruction.textContent = "Tap the card to reveal the Significator";
+    cardInterpretation.classList.add("hidden");
+    refreshReadingLog();
+}
+
+function revealSignificator() {
+    cardImage.src = cardImagePath(state.significator);
+    cardImage.alt = `${state.significator} (${state.significatorOrientation})`;
+    currentCard.classList.toggle(
+        "reversed",
+        state.significatorOrientation === "Reversed"
+    );
+    state.currentRevealed = true;
+
+    instruction.textContent =
+        `${state.significator}\n` +
+        `(${state.significatorOrientation})\n\n` +
+        "Tap to begin the ten-card Cross";
+
+    interpretationTitle.textContent =
+        `Significator — ${state.significator} (${state.significatorOrientation})`;
+    interpretationText.textContent =
+        "The Significator represents the person, situation, or central matter for which the Celtic Cross is being read. It is selected separately and is not counted among the ten cards of the Cross.";
+    cardInterpretation.classList.remove("hidden");
+
+    state.readingLog.push({
+        position: "Significator",
+        card: state.significator,
+        orientation: state.significatorOrientation
+    });
+    refreshReadingLog();
 }
 
 /* =========================
@@ -271,6 +341,17 @@ function showCard() {
    ========================= */
 
 function revealCard() {
+    if (state.currentSpreadId === "celtic" && state.cardIndex === 0 && !state.currentRevealed && state.readingLog.length === 0) {
+        revealSignificator();
+        return;
+    }
+
+    if (state.currentSpreadId === "celtic" && state.currentRevealed && state.readingLog.length === 1) {
+        state.currentRevealed = false;
+        showCard();
+        return;
+    }
+
     if (state.currentRevealed) {
         nextCardOrMenu();
         return;
@@ -313,10 +394,12 @@ function revealCard() {
 
 function nextCardOrMenu() {
     state.cardIndex += 1;
+
     if (state.cardIndex >= state.currentCards.length) {
         showMenu();
         return;
     }
+
     showCard();
 }
 
