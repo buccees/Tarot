@@ -1,21 +1,20 @@
 "use strict";
 
 /*
- * Reading presentation bridge.
- * The card artwork/layout stays untouched. This bridge watches the existing
- * interpretation fields after app.js resolves a card and places each
- * completed, position-specific explanation into the existing silver
- * reading area below the card.
+ * Interpretation presentation layer.
+ * The approved card layout is untouched. This file only moves the completed
+ * interpretation text into the reading-log area below the separator.
  */
 (function () {
+    const currentCard = document.getElementById("current-card");
     const cardInterpretation = document.getElementById("card-interpretation");
     const readingLog = document.getElementById("reading-log");
     const menuScreen = document.getElementById("menu-screen");
-    if (!cardInterpretation || !readingLog || !menuScreen) return;
+    if (!currentCard || !cardInterpretation || !readingLog || !menuScreen) return;
 
     const entries = [];
     let lastKey = "";
-    let readingWasActive = false;
+    let readingActive = false;
 
     function escapeHtml(value) {
         return String(value)
@@ -26,7 +25,29 @@
             .replaceAll("'", "&#039;");
     }
 
+    function getCurrentInterpretation() {
+        if (cardInterpretation.classList.contains("hidden")) return null;
+        const title = document.getElementById("interpretation-title")?.textContent?.trim();
+        const text = document.getElementById("interpretation-text")?.textContent?.trim();
+        if (!title || !text) return null;
+        return { title, text };
+    }
+
+    function captureCurrent() {
+        const entry = getCurrentInterpretation();
+        if (!entry) return false;
+        const key = `${entry.title}|||${entry.text}`;
+        if (key === lastKey) return false;
+        entries.push(entry);
+        lastKey = key;
+        return true;
+    }
+
     function render() {
+        if (!entries.length) {
+            readingLog.innerHTML = "";
+            return;
+        }
         readingLog.innerHTML = entries.map(entry => `
             <article class="reading-interpretation">
                 <h3>${escapeHtml(entry.title)}</h3>
@@ -35,36 +56,50 @@
         `).join("");
     }
 
-    function clearReading() {
+    function clear() {
         entries.length = 0;
         lastKey = "";
         render();
     }
 
-    function capture() {
-        if (cardInterpretation.classList.contains("hidden")) return;
-        const title = document.getElementById("interpretation-title")?.textContent?.trim();
-        const text = document.getElementById("interpretation-text")?.textContent?.trim();
-        if (!title || !text) return;
-
-        const key = `${title}|||${text}`;
-        if (key === lastKey) return;
-        entries.push({ title, text });
-        lastKey = key;
+    /*
+     * Capture phase is important: when the user taps an already-revealed card
+     * to advance, app.js immediately replaces the current interpretation.
+     * Capturing here first preserves the explanation before that happens.
+     */
+    currentCard.addEventListener("click", () => {
+        captureCurrent();
         render();
-    }
+        window.setTimeout(() => {
+            const menuVisible = !menuScreen.classList.contains("hidden");
+            if (menuVisible) {
+                clear();
+                readingActive = false;
+                return;
+            }
+            readingActive = true;
+            if (captureCurrent()) render();
+        }, 30);
+    }, true);
 
+    /*
+     * app.js changes the interpretation DOM synchronously during the reveal.
+     * The observer catches those changes as an additional safety net, while
+     * the delayed click handler above handles the normal path deterministically.
+     */
     const observer = new MutationObserver(() => {
-        const menuVisible = !menuScreen.classList.contains("hidden");
-        if (menuVisible) {
-            if (readingWasActive) clearReading();
-            readingWasActive = false;
+        if (!menuScreen.classList.contains("hidden")) {
+            if (readingActive) clear();
             return;
         }
-        readingWasActive = true;
-        window.setTimeout(capture, 0);
+        if (captureCurrent()) render();
     });
 
-    observer.observe(cardInterpretation, { attributes: true, attributeFilter: ["class", "aria-hidden"], childList: true, subtree: true, characterData: true });
-    observer.observe(menuScreen, { attributes: true, attributeFilter: ["class"] });
+    observer.observe(cardInterpretation, {
+        attributes: true,
+        attributeFilter: ["class", "aria-hidden"],
+        childList: true,
+        subtree: true,
+        characterData: true
+    });
 })();
