@@ -1,5 +1,9 @@
 import { test, expect } from "@playwright/test";
 
+const baseURL = "http://127.0.0.1:4173";
+
+test.use({ baseURL });
+
 test.describe("Tarot web app integrity", () => {
   test("loads every referenced script and exposes the interpretation resolver", async ({ page }) => {
     const consoleErrors = [];
@@ -12,7 +16,7 @@ test.describe("Tarot web app integrity", () => {
       failedRequests.push(`${request.url()} — ${request.failure()?.errorText ?? "request failed"}`);
     });
 
-    await page.goto("http://127.0.0.1:4173/index.html", { waitUntil: "networkidle" });
+    await page.goto("/index.html", { waitUntil: "networkidle" });
 
     await expect(page.locator("h1")).toHaveText("Determine your fate.");
     await expect(page.locator(".spread-card")).toHaveCount(4);
@@ -26,7 +30,7 @@ test.describe("Tarot web app integrity", () => {
   });
 
   test("reveals a card and displays its contextual interpretation", async ({ page }) => {
-    await page.goto("http://127.0.0.1:4173/index.html", { waitUntil: "networkidle" });
+    await page.goto("/index.html", { waitUntil: "networkidle" });
 
     await page.getByRole("button", { name: /Single Card/i }).click();
     await expect(page.locator("#reading-screen")).toBeVisible();
@@ -38,7 +42,7 @@ test.describe("Tarot web app integrity", () => {
 
     const rendered = page.locator(".reading-interpretation");
     await expect(rendered).toHaveCount(1);
-    await expect(rendered.first()).toContainText("Single Card");
+    await expect(rendered.first()).toContainText("Focus");
     await expect(rendered.first()).toContainText(/Upright|Reversed/);
 
     const visibleText = await rendered.first().innerText();
@@ -46,7 +50,7 @@ test.describe("Tarot web app integrity", () => {
   });
 
   test("keeps the first interpretation when a second card is revealed", async ({ page }) => {
-    await page.goto("http://127.0.0.1:4173/index.html", { waitUntil: "networkidle" });
+    await page.goto("/index.html", { waitUntil: "networkidle" });
 
     await page.getByRole("button", { name: /Three-Card/i }).click();
     await page.locator("#current-card").click();
@@ -62,7 +66,7 @@ test.describe("Tarot web app integrity", () => {
   });
 
   test("offers all five-card layouts and preserves the Celtic Cross significator flow", async ({ page }) => {
-    await page.goto("http://127.0.0.1:4173/index.html", { waitUntil: "networkidle" });
+    await page.goto("/index.html", { waitUntil: "networkidle" });
 
     await page.getByRole("button", { name: /Five-Card/i }).click();
     await expect(page.locator(".spread-option")).toHaveCount(6);
@@ -84,3 +88,12 @@ test.describe("Tarot web app integrity", () => {
     await expect(page.locator("#interpretation-text")).not.toHaveText("");
   });
 });
+
+export default {
+  webServer: {
+    command: "python3 -m http.server 4173 --directory site",
+    url: baseURL,
+    reuseExistingServer: false,
+    timeout: 30_000
+  }
+};
