@@ -44,7 +44,7 @@ test.describe("Tarot web app integrity", () => {
     await page.goto("/index.html", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Three-Card/i }).click();
 
-    // First click reveals card 1. The next click advances to the card-2 back.
+    // First click reveals card 1. The next click advances to card-2 back.
     await page.locator("#current-card").click();
     const firstInterpretation = await page.locator(".reading-interpretation").first().innerText();
     expect(firstInterpretation.trim().length).toBeGreaterThan(100);
@@ -64,12 +64,22 @@ test.describe("Tarot web app integrity", () => {
     await page.getByRole("button", { name: /Five-Card/i }).click();
     await expect(page.locator(".spread-option")).toHaveCount(6);
 
+    // Select a layout, verify its first position renders, then finish the reading
+    // before navigating back to the spread-selection screen.
     await page.getByRole("button", { name: /Situation & Advice/i }).click();
     await page.locator("#current-card").click();
     await expect(page.locator(".reading-interpretation")).toHaveCount(1);
     await expect(page.locator("#interpretation-text")).not.toHaveText("");
 
-    await page.getByRole("button", { name: /← Back/i }).click();
+    // A five-card reading advances through five reveal/advance cycles. Complete it
+    // so the app returns to the main menu, then verify the Celtic Cross separately.
+    for (let i = 0; i < 4; i += 1) {
+      await page.locator("#current-card").click();
+      await page.locator("#current-card").click();
+    }
+    await page.locator("#current-card").click();
+    await expect(page.locator("#menu-screen")).toBeVisible();
+
     await page.getByRole("button", { name: /Celtic Cross/i }).click();
     await expect(page.locator("#reading-info")).toContainText("Significator");
 
