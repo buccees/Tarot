@@ -77,38 +77,32 @@ jobs:
           cp web/*.js site/
           cp -R images/rider-waite-tarot site/images/rider-waite-tarot
 
-      - name: Install browser test runner
+      - name: Install browser test dependencies
         run: |
           set -eux
-          npx --yes playwright@1.55.0 install --with-deps chromium
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install --with-deps chromium
 
       - name: Run browser integration tests
         run: |
           set -eux
-          npx --yes playwright@1.55.0 test --config=playwright.config.mjs tests/web-app.spec.mjs
+          npx playwright test --config=playwright.config.mjs tests/web-app.spec.mjs
 
   deploy:
     needs: validate
     runs-on: ubuntu-22.04
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Prepare website
         run: |
           set -eux
-
           rm -rf site
           mkdir -p site/images
-
           cp web/index.html site/index.html
           cp web/style.css site/style.css
           cp web/*.js site/
-
-          cp -R images/rider-waite-tarot \
-            site/images/rider-waite-tarot
-
+          cp -R images/rider-waite-tarot site/images/rider-waite-tarot
           test -f site/index.html
           test -f site/style.css
           test -f site/app.js
@@ -116,59 +110,39 @@ jobs:
           test -f site/reading-interpretations.js
           test -f site/presentation-fix.js
           test -f site/images/rider-waite-tarot/CardBacks.jpg
-
-          echo "Website:"
           find site -type f | sort
-
       - name: Create GitHub Pages site if necessary
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: |
           set -eux
-
-          RESPONSE=$(curl \
-            -sS \
-            -o /tmp/pages-response.json \
-            -w "%{http_code}" \
+          RESPONSE=$(curl -sS -o /tmp/pages-response.json -w "%{http_code}" \
             -H "Authorization: Bearer ${GH_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "https://api.github.com/repos/${REPO}/pages")
-
-          echo "Existing Pages API response: HTTP ${RESPONSE}"
           cat /tmp/pages-response.json || true
-
           if [ "${RESPONSE}" = "404" ]; then
-            echo "Pages site does not exist. Creating it..."
-
-            curl \
-              -sS \
-              -f \
-              -X POST \
+            curl -sS -f -X POST \
               -H "Authorization: Bearer ${GH_TOKEN}" \
               -H "Accept: application/vnd.github+json" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
               -H "Content-Type: application/json" \
               "https://api.github.com/repos/${REPO}/pages" \
               -d '{"build_type":"workflow"}'
-
           elif [ "${RESPONSE}" -ge 200 ] && [ "${RESPONSE}" -lt 300 ]; then
             echo "Pages site already exists."
-
           else
             echo "Unexpected Pages API response: HTTP ${RESPONSE}"
             exit 1
           fi
-
       - name: Configure Pages
         uses: actions/configure-pages@v5
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
-
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
