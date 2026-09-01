@@ -36,3 +36,7 @@ A ten-card reading providing a detailed examination of a situation, including th
 The Tarot application runs directly in your browser with no installation required.
 
 Optionally, I am also working on my workflow file to compile an installable python app for offline use. These creative cards are not just fun. They are FUNCTIONAL!
+
+These cards can be used to generate stories for RP adventure campaigns, such as D&D.
+
+All of the lore is included in the descriptions. Feel free to use it for whatever purpose you see fit.
