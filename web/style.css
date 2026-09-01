@@ -1,5 +1,5 @@
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; background: #050505; color: #c8c2b4; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; background: #050505; color: #c8c2b4; font-family: Georgia, "Times New Roman", serif; }
 body { min-height: 100vh; min-height: 100dvh; overflow-x: hidden; position: relative; }
 body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle at 50% 20%, rgba(57,72,86,.20), transparent 38%), linear-gradient(180deg, rgba(4,5,6,.96), rgba(9,10,10,.92) 48%, rgba(3,4,5,.98)); background-repeat: no-repeat; background-position: center; background-size: cover; }
 body::after { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle at center, rgba(85,105,125,.10), transparent 58%), repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0, rgba(255,255,255,.018) 1px, transparent 1px, transparent 4px); mix-blend-mode: screen; opacity: .28; }
@@ -12,7 +12,7 @@ button { font: inherit; }
 .menu-container::before, .menu-container::after { content: ""; position: absolute; pointer-events: none; border: 1px solid rgba(178,146,70,.28); }
 .menu-container::before { inset: 8px; }
 .menu-container::after { inset: 12px; border-color: rgba(190,170,120,.12); }
-.menu-container h1 { margin: 0 0 30px; text-align: center; font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; font-weight: 700; letter-spacing: 1px; color: #d2ad63; text-shadow: 0 1px 0 #241a0c, 0 0 12px rgba(196,154,67,.25); }
+.menu-container h1 { margin: 0 0 30px; text-align: center; font-family: "Cinzel", Georgia, "Times New Roman", serif; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; font-weight: 700; letter-spacing: 1px; color: #d2ad63; text-shadow: 0 1px 0 #241a0c, 0 0 12px rgba(196,154,67,.25); }
 .spread-grid { display: flex; flex-direction: row; justify-content: center; align-items: flex-start; gap: 24px; width: 100%; }
 .spread-card { position: relative; display: block; flex: 1 1 0; width: 100%; max-width: 250px; aspect-ratio: 2 / 3; padding: 0; border: 2px solid #a98749; border-radius: 3px; overflow: hidden; background: #101111; cursor: pointer; box-shadow: 0 8px 30px rgba(0,0,0,.7), 0 0 0 1px rgba(226,198,135,.12), 0 0 12px rgba(125,98,44,.20), inset 0 0 12px rgba(0,0,0,.6); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
 .spread-card::before, .spread-card::after { content: ""; position: absolute; pointer-events: none; z-index: 3; }
@@ -23,26 +23,26 @@ button { font: inherit; }
 .spread-card img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.82) contrast(1.05) brightness(.86); }
 .spread-overlay { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; background: linear-gradient(to bottom, rgba(3,4,5,.18), rgba(3,4,5,.78)); }
 .spread-overlay strong, .spread-overlay small { position: relative; z-index: 5; color: #d0ad68; text-shadow: 0 1px 0 #0b0906, 0 0 8px rgba(0,0,0,.95); }
-.spread-overlay strong { font-family: Georgia, "Times New Roman", serif; font-size: clamp(18px, 2.3vw, 25px); line-height: 1.2; font-weight: 700; letter-spacing: 1px; }
+.spread-overlay strong { font-family: "Cinzel", Georgia, "Times New Roman", serif; font-size: clamp(18px, 2.3vw, 25px); line-height: 1.2; font-weight: 700; letter-spacing: 1px; }
 .spread-overlay small { margin-top: 10px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(13px, 1.5vw, 17px); line-height: 1.25; color: #bdb7aa; letter-spacing: .5px; }
 .spread-options { width: 100%; max-width: 1050px; margin: 0 auto; }
 .options-header { display: grid; grid-template-columns: 120px 1fr 120px; align-items: center; margin-bottom: 22px; }
 .options-header > div { text-align: center; }
-.options-header h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(24px, 4vw, 34px); color: #d2ad63; text-shadow: 0 1px 0 #1b1409, 0 0 10px rgba(196,154,67,.18); }
+.options-header h2 { margin: 0; font-family: "Cinzel", Georgia, "Times New Roman", serif; font-size: clamp(24px, 4vw, 34px); color: #d2ad63; text-shadow: 0 1px 0 #1b1409, 0 0 10px rgba(196,154,67,.18); }
 .options-header p { margin: 8px 0 0; color: #aaa59a; font-size: 15px; }
 .text-button { justify-self: start; border: 1px solid rgba(168,134,66,.48); background: rgba(8,9,9,.72); color: #c7b27d; cursor: pointer; padding: 8px 12px; border-radius: 2px; }
 .text-button:hover { color: #e0c88f; border-color: #c49b52; background: rgba(24,22,17,.85); }
 .option-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
 .spread-option { min-height: 130px; padding: 20px; border: 1px solid rgba(157,126,65,.70); border-radius: 3px; background: linear-gradient(145deg, rgba(24,25,25,.94), rgba(7,8,8,.94)); color: #c8c2b4; text-align: left; cursor: pointer; transition: transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease; box-shadow: inset 0 0 18px rgba(166,129,57,.04), 0 5px 18px rgba(0,0,0,.28); }
 .spread-option:hover { transform: translateY(-3px); border-color: #c7a45e; background: linear-gradient(145deg, rgba(35,34,29,.96), rgba(9,10,10,.96)); box-shadow: 0 10px 26px rgba(0,0,0,.45), inset 0 0 18px rgba(166,129,57,.07); }
-.spread-option strong { display: block; margin-bottom: 10px; font-family: Georgia, "Times New Roman", serif; font-size: 21px; color: #d0ad68; }
+.spread-option strong { display: block; margin-bottom: 10px; font-family: "Cinzel", Georgia, "Times New Roman", serif; font-size: 21px; color: #d0ad68; }
 .spread-option span { display: block; color: #bdb8ad; font-size: 14px; line-height: 1.45; }
 #reading-screen { padding: 16px; }
 .reading-container { width: 100%; min-height: calc(100vh - 32px); min-height: calc(100dvh - 32px); display: flex; flex-direction: column; align-items: center; }
 .reading-info { width: 100%; min-height: 30px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; color: #c8c2b4; font-size: 14px; text-align: center; }
 .reading-position-context { width: min(760px, 95vw); text-align: center; padding: 8px 18px 10px; border-top: 1px solid rgba(167,132,64,.45); border-bottom: 1px solid rgba(167,132,64,.25); background: linear-gradient(90deg, transparent, rgba(8,9,9,.62), transparent); }
 .reading-spread-name { margin-bottom: 4px; color: #9f927a; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; }
-.reading-position-context h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(24px, 4vw, 34px); color: #d0ad68; text-shadow: 0 1px 0 #151008, 0 0 10px rgba(196,154,67,.16); }
+.reading-position-context h2 { margin: 0; font-family: "Cinzel", Georgia, "Times New Roman", serif; font-size: clamp(24px, 4vw, 34px); color: #d0ad68; text-shadow: 0 1px 0 #151008, 0 0 10px rgba(196,154,67,.16); }
 .reading-position-context p { max-width: 700px; margin: 8px auto 0; color: #c2bdb2; font-size: 15px; line-height: 1.45; }
 .card-button { flex: 0 1 48vh; width: min(72vw,390px); max-height: 48vh; padding: 0; border: 0; border-radius: 3px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .card-button img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 3px; box-shadow: 0 12px 45px rgba(0,0,0,.75), 0 0 0 1px rgba(193,151,72,.18), 0 0 18px rgba(116,88,40,.14); transition: transform .18s ease, box-shadow .18s ease; }
@@ -55,7 +55,7 @@ button { font: inherit; }
 .reading-position { font-weight: 700; color: #d0ad68; }
 .reading-interpretation { padding: 0 8px 22px; margin: 0 0 20px; border-bottom: 1px solid rgba(170,138,72,.22); }
 .reading-interpretation:last-child { margin-bottom: 0; border-bottom: 0; }
-.reading-interpretation h3 { margin: 0 0 9px; font-family: Georgia, "Times New Roman", serif; font-size: 20px; line-height: 1.25; color: #d0ad68; }
+.reading-interpretation h3 { margin: 0 0 9px; font-family: "Cinzel", Georgia, "Times New Roman", serif; font-size: 20px; line-height: 1.25; color: #d0ad68; }
 .reading-interpretation p { margin: 0; color: #c4beb2; font-size: 15px; line-height: 1.65; }
 @media (max-width: 700px) {
     #menu-screen { padding: 20px; }
