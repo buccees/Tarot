@@ -16,7 +16,79 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  validate:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate HTML structure
+        run: |
+          set -eux
+          npx --yes html-validate@9 web/index.html
+
+      - name: Validate JavaScript syntax
+        shell: bash
+        run: |
+          set -euxo pipefail
+          while IFS= read -r -d '' file; do
+            echo "Checking $file"
+            node --check "$file"
+          done < <(find web -type f -name '*.js' -print0 | sort -z)
+
+      - name: Validate web references and required runtime files
+        shell: bash
+        run: |
+          set -euxo pipefail
+          test -f web/index.html
+          test -f web/style.css
+          test -f web/app.js
+          test -f web/interpretations.js
+          test -f web/reading-interpretations.js
+          test -f web/presentation-fix.js
+          test -f images/rider-waite-tarot/CardBacks.jpg
+
+          node --input-type=module <<'NODE'
+          import { readFileSync, existsSync } from "node:fs";
+          const html = readFileSync("web/index.html", "utf8");
+          const scripts = [...html.matchAll(/<script\\b[^>]*\\bsrc=["']([^"']+)["'][^>]*><\\/script>/gi)].map(m => m[1]);
+          const expected = [
+            "interpretations.js?v=20260901-6",
+            "app.js?v=20260901-6",
+            "reading-interpretations.js?v=20260901-3",
+            "presentation-fix.js?v=20260901-2"
+          ];
+          if (JSON.stringify(scripts) !== JSON.stringify(expected)) {
+            throw new Error(`Unexpected script order. Found: ${JSON.stringify(scripts)}`);
+          }
+          for (const src of scripts) {
+            const path = src.split("?", 1)[0];
+            if (!existsSync(`web/${path}`)) throw new Error(`Missing script referenced by HTML: ${path}`);
+          }
+          NODE
+
+      - name: Prepare test site
+        run: |
+          set -eux
+          rm -rf site
+          mkdir -p site/images
+          cp web/index.html site/index.html
+          cp web/style.css site/style.css
+          cp web/*.js site/
+          cp -R images/rider-waite-tarot site/images/rider-waite-tarot
+
+      - name: Install browser test runner
+        run: |
+          set -eux
+          npx --yes playwright@1.55.0 install --with-deps chromium
+
+      - name: Run browser integration tests
+        run: |
+          set -eux
+          npx --yes playwright@1.55.0 test tests/web-app.spec.mjs
+
   deploy:
+    needs: validate
     runs-on: ubuntu-22.04
 
     steps:
@@ -32,7 +104,7 @@ jobs:
 
           cp web/index.html site/index.html
           cp web/style.css site/style.css
-          cp web/app.js site/app.js
+          cp web/*.js site/
 
           cp -R images/rider-waite-tarot \
             site/images/rider-waite-tarot
@@ -40,6 +112,9 @@ jobs:
           test -f site/index.html
           test -f site/style.css
           test -f site/app.js
+          test -f site/interpretations.js
+          test -f site/reading-interpretations.js
+          test -f site/presentation-fix.js
           test -f site/images/rider-waite-tarot/CardBacks.jpg
 
           echo "Website:"
