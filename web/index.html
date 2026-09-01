@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#000000">
     <title>Custom Art Tarot</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260901-2">
 </head>
 <body>
     <main id="app">
@@ -51,25 +51,20 @@
         <section id="reading-screen" class="screen hidden">
             <div class="reading-container">
                 <div id="reading-info" class="reading-info"></div>
-
                 <aside id="position-tracker" class="position-tracker" aria-label="Reading positions"></aside>
-
                 <button id="current-card" class="card-button" aria-label="Reveal card">
                     <img id="card-image" src="images/rider-waite-tarot/CardBacks.jpg" alt="Tarot card">
                 </button>
-
                 <div id="instruction" class="instruction">Tap the card to reveal</div>
-
                 <article id="card-interpretation" class="card-interpretation hidden" aria-live="polite">
                     <h2 id="interpretation-title"></h2>
                     <p id="interpretation-text"></p>
                 </article>
-
                 <div id="reading-log" class="reading-log"><em>Revealed cards will appear here</em></div>
             </div>
         </section>
     </main>
-    <script src="interpretations.js"></script>
-    <script src="app.js"></script>
+    <script src="interpretations.js?v=20260901-2"></script>
+    <script src="app.js?v=20260901-2"></script>
 </body>
 </html>
