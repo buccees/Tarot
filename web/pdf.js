@@ -112,21 +112,24 @@
             @media print {
                 @page { size: Letter; margin: 0.55in; }
                 body > *:not(#pdf-reading-report) { display: none !important; }
-                #pdf-reading-report { display: block !important; color: #222; background: #fff; font-family: Georgia, "Times New Roman", serif; }
+                /* Ensure text prints as readable black and color adjustments are honored */
+                #pdf-reading-report { display: block !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; background: #fff; font-family: Georgia, "Times New Roman", serif; }
                 .pdf-report-header { text-align: center; border-bottom: 2px solid #a98749; padding-bottom: 18px; margin-bottom: 22px; }
                 .pdf-report-kicker { letter-spacing: 5px; font-size: 12px; color: #8a6a32; }
                 .pdf-report-header h1 { margin: 6px 0; font-size: 28px; }
-                .pdf-report-date { font-size: 11px; color: #666; }
+                .pdf-report-date { font-size: 11px; color: #000 !important; }
                 .pdf-report-card { display: flex; gap: 22px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid #d5d0c6; break-inside: avoid; page-break-inside: avoid; }
                 .pdf-card-image-wrap { width: 150px; flex: 0 0 150px; }
                 .pdf-card-image { display: block; width: 150px; height: 255px; object-fit: contain; }
                 .pdf-card-reversed { transform: rotate(180deg); }
                 .pdf-card-copy { flex: 1; }
-                .pdf-card-position { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #8a6a32; }
+                /* Force black text for copy so it remains visible when printing */
+                .pdf-card-copy, .pdf-card-copy p, .pdf-card-copy h2, .pdf-card-position, .pdf-card-orientation, .pdf-position-description { color: #000 !important; }
+                .pdf-card-position { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
                 .pdf-card-copy h2 { margin: 5px 0 3px; font-size: 21px; }
                 .pdf-card-orientation { font-size: 11px; font-weight: bold; margin-bottom: 10px; }
                 .pdf-card-copy p { font-size: 11px; line-height: 1.5; margin: 7px 0; }
-                .pdf-position-description { color: #555; }
+                .pdf-position-description { color: #000 !important; }
             }
         `;
         document.head.appendChild(style);
