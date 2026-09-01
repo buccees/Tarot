@@ -8,6 +8,10 @@ Click the card above to enter the Tarot app.
 
 A simple Tarot reading app using the Rider-Waite Tarot deck. Choose a spread, draw your cards, and explore the meaning of your reading.
 
+A simple dice roller is included as well.
+
+All readings are available for download as a PDF document for  future reference.
+
 ## Spreads
 
 ### Single Card
@@ -21,6 +25,7 @@ A three-card reading covering the Past, Present, and Future.
 ### Five Card
 
 A five-card reading providing a broader look at a situation, including the present situation, influences, challenges, advice, and outcome.
+Several five card spreads are available for different purposes
 
 ### Celtic Cross
 
