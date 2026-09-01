@@ -46,6 +46,7 @@ jobs:
           test -f web/interpretations.js
           test -f web/reading-interpretations.js
           test -f images/rider-waite-tarot/CardBacks.jpg
+          test -f images/glenmoril-hunt-background.jpg
 
           node --input-type=module <<'NODE'
           import { readFileSync, existsSync } from "node:fs";
@@ -74,6 +75,8 @@ jobs:
           cp web/style.css site/style.css
           cp web/*.js site/
           cp -R images/rider-waite-tarot site/images/rider-waite-tarot
+          cp images/glenmoril-hunt-background.jpg site/images/glenmoril-hunt-background.jpg
+          test -f site/images/glenmoril-hunt-background.jpg
 
       - name: Install browser test dependencies
         run: |
@@ -101,12 +104,14 @@ jobs:
           cp web/style.css site/style.css
           cp web/*.js site/
           cp -R images/rider-waite-tarot site/images/rider-waite-tarot
+          cp images/glenmoril-hunt-background.jpg site/images/glenmoril-hunt-background.jpg
           test -f site/index.html
           test -f site/style.css
           test -f site/app.js
           test -f site/interpretations.js
           test -f site/reading-interpretations.js
           test -f site/images/rider-waite-tarot/CardBacks.jpg
+          test -f site/images/glenmoril-hunt-background.jpg
           find site -type f | sort
       - name: Create GitHub Pages site if necessary
         env:
