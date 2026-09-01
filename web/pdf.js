@@ -1,8 +1,13 @@
 "use strict";
 
+/*
+ * PDF export is loaded at page startup, while the Download button is created
+ * dynamically when a reading is complete. We therefore wait for the button,
+ * replace it with a clean clone (removing the legacy PDF click handler), and
+ * attach the single source-of-truth exporter below.
+ */
 (function () {
-    const button = document.getElementById("download-reading-pdf");
-    if (!button) return;
+    let installedButton = null;
 
     function escapeHtml(value) {
         return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
@@ -20,8 +25,7 @@
     }
 
     function buildReport() {
-        const existing = document.getElementById("pdf-reading-report");
-        if (existing) existing.remove();
+        document.getElementById("pdf-reading-report")?.remove();
 
         const report = document.createElement("section");
         report.id = "pdf-reading-report";
@@ -59,11 +63,10 @@
     function cleanup() {
         document.getElementById("pdf-reading-report")?.remove();
         document.getElementById("pdf-print-style")?.remove();
-        window.removeEventListener("afterprint", cleanup);
-        button.disabled = false;
+        if (installedButton) installedButton.disabled = false;
     }
 
-    button.addEventListener("click", () => {
+    function printReading(button) {
         if (!state.readingLog.length) {
             window.alert("Reveal at least one card before downloading the reading.");
             return;
@@ -90,8 +93,6 @@
                 #pdf-reading-report {
                     display: block !important;
                     position: static !important;
-                    left: auto !important;
-                    top: auto !important;
                     width: auto !important;
                     margin: 0 !important;
                     padding: 0 !important;
@@ -133,31 +134,35 @@
                     text-transform: uppercase;
                     font-weight: bold;
                 }
-                .pdf-card-copy h2 {
-                    margin: 5px 0 3px;
-                    font-size: 21px;
-                }
-                .pdf-card-orientation {
-                    font-size: 11px;
-                    font-weight: bold;
-                    margin-bottom: 12px;
-                }
-                .pdf-card-copy p {
-                    font-size: 12px;
-                    line-height: 1.6;
-                    margin: 8px 0;
-                }
-                .pdf-position-description {
-                    font-style: italic;
-                }
-                .pdf-card-interpretation {
-                    white-space: normal;
-                }
+                .pdf-card-copy h2 { margin: 5px 0 3px; font-size: 21px; }
+                .pdf-card-orientation { font-size: 11px; font-weight: bold; margin-bottom: 12px; }
+                .pdf-card-copy p { font-size: 12px; line-height: 1.6; margin: 8px 0; }
+                .pdf-position-description { font-style: italic; }
             }
         `;
         document.head.appendChild(style);
         window.addEventListener("afterprint", cleanup, { once: true });
         window.print();
         window.setTimeout(cleanup, 3000);
-    });
+    }
+
+    function installOnButton(button) {
+        if (!button || button === installedButton) return;
+
+        // The legacy exporter in reading-interpretations.js attaches its own
+        // click handler. Replacing the node removes those listeners while
+        // preserving the visible button and completion UI.
+        const cleanButton = button.cloneNode(true);
+        button.replaceWith(cleanButton);
+        installedButton = cleanButton;
+        cleanButton.addEventListener("click", () => printReading(cleanButton));
+    }
+
+    function scan() {
+        const button = document.getElementById("download-reading-pdf");
+        if (button && button !== installedButton) installOnButton(button);
+    }
+
+    scan();
+    new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
 })();
