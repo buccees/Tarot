@@ -141,3 +141,235 @@ Someone who understood that the man fleeing into the wilderness was not merely a
 He was a Moonwarden.
 
 And he had been trained from birth to survive the hunt.
+
+Bastian had never imagined that, one day, he would be the one leaving the city with a hunter behind him. Yet there was little point in pretending otherwise. The order would come for him eventually, and he knew better than most what that meant. Whoever received the assignment would follow the same principles Bastian himself had followed for years: learn the habits of the quarry, determine where it was likely to go, discover what it needed, and wait until the moment when the trail could no longer be denied. The thought did not frighten him nearly as much as it might have frightened another man. It was simply another problem to be solved, and for the moment there was a more immediate one.
+
+The witches had given him the curse, and somewhere in the world there had to be a way to remove it.
+
+Bastian rode through the western gate before the sun had cleared the roofs of the city. He did not look back when the walls disappeared behind him. There would be time enough for that later, if he ever returned, and he had no intention of making his departure into a farewell. Baldur's Gate had been his home for all of his life, but the Temple of the Silver Vigil was the place that mattered. It was where he had been raised, where his family had served, and where he had expected to spend the rest of his life. The fact that he had been ordered away did not change that expectation. It only meant that he had something to correct before he could go home.
+
+The first part of the journey was easy enough. Bastian kept to the roads used by merchants and travelers, stopping wherever there was a respectable inn and avoiding places that looked likely to provide more fleas than sleep. He had enough coin to travel comfortably for a while, though not enough to waste it. His equipment had been chosen for use rather than appearance, but that did not mean he saw any reason for it to remain shabby. He had always believed that good tools were worth paying for, and exile had not changed his mind. If anything, being separated from the temple made him more aware of how much he had taken for granted there.
+
+The greater problem was information. Bastian knew what he was looking for, but he did not know where to begin. The witches had not left him with a convenient trail, and he had no reason to believe that anyone he encountered on the road would know where they had gone. The temple had searched what records it possessed and consulted priests who had dealt with curses of many kinds, but none of them had recognized what had been done to him. The rites had failed, and the healers had found nothing they could remove. Whatever the witches had placed within him was bound too deeply for ordinary cleansing.
+
+That left him with the witches themselves.
+
+For several days he listened more than he spoke. In roadside inns and crowded taprooms, he let other travelers tell their stories while he asked questions that seemed casual enough. He heard the usual collection of tales that followed any stretch of lonely road: lights seen among the trees, abandoned houses that were supposedly haunted, travelers who had vanished, old women accused of sorcery because their gardens grew better than their neighbors'. Most were worthless, and Bastian discarded them without a second thought. Fear had a way of turning an ordinary fox into a demon and a sick neighbor into a witch.
+
+Every so often, however, a story contained something that made him pause.
+
+A merchant traveling south told him of a village where several people had fallen ill after drinking from the same well, though the illness had disappeared as mysteriously as it came. A farmer spoke of a woman living alone beyond the edge of a forest who knew enough about herbs to make the local healer nervous. An old caravan guard mentioned a group of travelers who had refused to enter a particular stretch of woodland after one of their companions became convinced that something had been following them for three nights.
+
+None of it was enough.
+
+Bastian did not need rumors of witches. He needed a connection between those rumors and the particular curse that had ruined his life.
+
+He eventually found the first useful piece of information in a town whose name he had already forgotten by the time he left it. He had spent the afternoon helping a merchant recover a stolen pack mule, and the reward had been generous enough to secure a good room and a better supper. He was finishing his meal when two men at the next table began arguing about a road farther north. One insisted that a caravan had been attacked by bandits, while the other maintained that bandits had nothing to do with it.
+
+Bastian paid little attention until the second man mentioned the bodies.
+
+"There were three of them," the man said. "All dead before anyone reached the wagon."
+
+"And the guards?"
+
+"Dead too."
+
+"Then it was bandits."
+
+"Bandits leave tracks."
+
+The first man stared at him. "What are you talking about?"
+
+"I am saying there weren't any."
+
+That was enough to draw Bastian's attention. He waited until the argument had quieted before asking what had happened. The second man seemed pleased to have another listener and explained that the caravan had been found on the northern road several weeks earlier. The horses were still alive, though badly frightened, and the wagons had not been robbed. Nothing of value had been taken. The dead men had simply been left where they fell, and one of the caravan guards was missing.
+
+"Did they find him?" Bastian asked.
+
+The man shook his head. "Not then."
+
+"Later?"
+
+The answer took longer.
+
+"He came home."
+
+Bastian studied him.
+
+"His family said he did."
+
+The man leaned closer, lowering his voice. "His wife swore it was him. Same face, same voice, same clothes. But she wouldn't let him inside the house."
+
+"Why?"
+
+"Because she said something was wrong."
+
+Bastian did not ask what.
+
+He had heard enough.
+
+The man's companion muttered that the whole story was nonsense, but Bastian was no longer listening to the argument. There was something about the account that disturbed him, not because it proved anything, but because it reminded him of the aftermath in Baldur's Gate. The curse did not behave as it should. It changed things. It left people unable to recognize what had once been familiar.
+
+He waited until the men had finished their drinks before asking where the caravan had been found. The road was not far from his intended direction, and when he returned to his room that night, he studied the map by candlelight for a long time.
+
+The following morning, he changed his route.
+
+The road north took him through country that grew increasingly wild as the miles passed. Farms became scattered, then disappeared altogether, and the traffic dwindled until he sometimes rode for hours without seeing another traveler. Bastian did not mind the solitude. It gave him time to think, though he was careful not to let his thoughts circle endlessly around the same questions. He had already spent enough time wondering what might have happened if the temple's priests had succeeded. There was no value in imagining a different past.
+
+The future was what mattered.
+
+Three days after leaving the town, he reached the place where the caravan had been found. There was little left to see. The wagons were gone, and the bodies had long since been buried. The road showed only the ordinary marks of passing travelers, but Bastian stopped his horse and studied the surrounding ground anyway. He found no obvious sign of what had happened, though he had not expected to. Whatever had attacked the caravan was long gone.
+
+He followed the road a short distance before noticing a narrow track leading into the trees. It was little more than a pair of ruts, nearly hidden beneath fallen leaves, but someone had used it recently. Bastian dismounted and followed it on foot until it ended at a small clearing.
+
+There was an old fire pit beneath the trees.
+
+It had been used recently enough that rain had not yet completely erased the remains.
+
+Bastian crouched beside it and examined the ashes. There was nothing unusual about them, but something caught his eye near the edge of the clearing. Half-buried beneath the damp earth was a small piece of worked metal, no larger than the end of his thumb.
+
+He picked it up and turned it between his fingers.
+
+It was finely made, though he could not identify its purpose. There were no markings he recognized, and whatever object it had once belonged to was no longer with it. Bastian almost threw it back into the dirt, then decided against it. He had an appreciation for well-made things, and this had clearly been made by someone who cared about the work.
+
+He slipped it into his pouch.
+
+There was nothing more to find.
+
+By late afternoon he reached a small settlement farther along the road and stopped at an inn that looked clean enough to trust. The innkeeper was a broad-shouldered woman with a sharp eye and little patience for travelers who wanted to haggle over the price of a room. Bastian paid what she asked and took a seat near the hearth while he waited for supper.
+
+He did not mention the caravan.
+
+He did not mention the strange track in the woods.
+
+Instead, he listened.
+
+It was the same method he had used in the larger towns, though the people here were less practiced at hiding what they knew. Before long he learned that the caravan had been discussed in the settlement, and that the missing guard had not been the only person to disappear along that stretch of road.
+
+A farmer had vanished the previous spring.
+
+A peddler had disappeared the year before that.
+
+And several months earlier, a traveler had been found wandering near the marsh with no memory of where he had been.
+
+Bastian asked the innkeeper about the marsh.
+
+She gave him a long look before answering.
+
+"Why?"
+
+"I am traveling north."
+
+"That isn't what I asked."
+
+"No," Bastian said, "but it is the answer I have."
+
+The woman almost smiled.
+
+"The marsh isn't worth visiting."
+
+"Most places aren't."
+
+"You'll find nothing there."
+
+"Perhaps."
+
+She studied him again, then reached beneath the counter and produced a small clay cup of wine.
+
+"You'll want to speak with Harven before you go farther north. He trades herbs along the old road. Knows the marsh better than anyone around here."
+
+"Where can I find him?"
+
+"His house is beyond the mill."
+
+Bastian thanked her and took the cup.
+
+He did not ask why she had changed her mind.
+
+The next morning he found Harven.
+
+The old herb trader lived in a weathered cottage beside a narrow stream, surrounded by drying racks and bundles of plants hanging beneath the eaves. He was reluctant to speak at first, but Bastian's questions eventually convinced him that the cleric was not looking for trouble in the marsh for the sake of finding it.
+
+When Bastian mentioned the missing caravan guard, Harven's expression hardened.
+
+"You've been asking about him."
+
+"I have."
+
+"Why?"
+
+"Because I believe there may be a connection between what happened to him and something I am trying to understand."
+
+Harven studied him for a long time.
+
+"You've been cursed."
+
+Bastian's hand rested quietly against the edge of the table.
+
+"Why would you say that?"
+
+"Because you have the look of a man who is searching for an answer rather than a man looking for a criminal."
+
+There was no point in lying, but neither was there any reason to explain more than necessary.
+
+"Do you know anything about witches?"
+
+Harven looked toward the window.
+
+"I know enough to stay away from them."
+
+"That isn't what I asked."
+
+"No," the old man said, "but it is the advice I would give you."
+
+Bastian waited.
+
+Eventually Harven sighed.
+
+"There are people in the marsh who know things. Whether they are witches, healers, or something else, I couldn't tell you. Years ago there was a woman who came through this country asking questions about curses. She wasn't from here, and she didn't stay long."
+
+"Where did she go?"
+
+"I don't know."
+
+"Who does?"
+
+Harven shook his head.
+
+"You're not the first person to ask."
+
+That interested Bastian more than the answer.
+
+"Who else?"
+
+The old man looked at him carefully.
+
+"A traveler came through here not long ago. Asked many of the same questions you are asking. He was looking for someone in the marsh."
+
+"Did you tell him anything?"
+
+"I told him what I knew."
+
+"Which was?"
+
+Harven leaned back in his chair.
+
+"That if he wanted answers, he should stop looking for them on the road."
+
+Bastian frowned.
+
+"What did he mean by that?"
+
+"I don't know."
+
+The old man's gaze moved toward the door.
+
+"But he left heading north."
+
+Bastian thanked him and stood.
+
+Outside, the morning was cold and clear. He mounted his horse and looked toward the road beyond the cottage. Somewhere ahead lay the marsh, and somewhere beyond that were people who might know more about the curse than anyone at the Temple of the Silver Vigil had been able to discover.
+
+The trail was still faint, but it was a trail.
+
+Bastian turned his horse toward the north and followed it.
