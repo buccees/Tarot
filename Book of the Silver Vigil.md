@@ -92,55 +92,36 @@ When it was over, the elders of the Silver Vigil gave him his sentence.
 
 Exile.
 
-He had stood before them covered in the grime and blood of the night, while the priests spoke of what could not be controlled and what could not be permitted to happen again. They did not call him evil. They did not accuse him of choosing the beast. That almost made it worse.
+He had stood before the priests covered in the grime and blood of the night while they spoke of what could not be controlled and what could never be allowed to happen again. They did not call him evil. They did not accuse him of choosing the beast. Somehow, that made it worse.
 
-They simply told him that he could no longer remain.
+They simply told him he could no longer remain.
 
-He had understood.
+He had understood. If another Moonwarden had returned to the temple carrying such a curse, he would have argued for the same decision.
 
-Had another Moonwarden returned to the temple carrying such a curse, he would have argued for exactly the same decision.
+Now, several days later, he rode hard along a forest road, the smoke of Baldur’s Gate still visible behind him. His horse was exhausted, and so was he, but neither could afford to stop for long. The Moonwardens would eventually come for him. Perhaps they already had. He knew their methods too well to believe otherwise.
 
-So he left.
-
-Now, several days later, he rode hard along a forest road with the smoke of Baldur's Gate still visible behind him. His horse was exhausted, and so was he, but neither could afford to stop for long. He knew that the Moonwardens would eventually come after him. Perhaps they already had. He knew their methods too well to believe otherwise.
-
-Yet he was not running simply to escape them.
+But he was not running simply to escape them.
 
 He had a destination.
 
-Before leaving the city, he had heard a rumor from a frightened merchant whose daughter had once disappeared into the western forests. The merchant had spoken of a coven that lived beyond the old ruins, witches who practiced forms of magic older than the temples and who dealt in curses that ordinary priests could not undo.
+Before leaving the city, he had heard a rumor from a frightened merchant whose daughter had once disappeared into the western forests. Beyond the old ruins, the merchant claimed, lived a coven of witches who practiced magic older than the temples and dealt in curses ordinary priests could not undo.
 
-Under other circumstances, he might have been sent to kill them.
+Under other circumstances, Bastian might have been sent to hunt them.
 
-Now he intended to ask them for help.
+Now, he intended to ask them for help.
 
-The thought still struck him as absurd whenever it crossed his mind.
+The thought still struck him as absurd whenever it crossed his mind. He had spent his life hunting witches, and now his survival depended on finding one willing to speak with him. The priests of the Silver Vigil could not break his curse. Killing the witch who had cast it would not undo what had been woven into his blood. Someone would have to unravel it.
 
-He had spent his entire life learning how to hunt witches, and now the survival of that life might depend upon finding one willing to speak with him. The priests of the Silver Vigil could not break the curse. Killing the witch who had placed it upon him would not remove it. Whatever had been woven into his blood would remain unless someone could find a way to unravel it.
+He intended to find them.
 
-And he was determined to find that someone.
-
-Not because he feared becoming a monster. Fear had never been especially useful to him.
-
-He simply had no intention of surrendering the life he had worked so hard to build.
-
-He wanted his freedom. He wanted his coin. He wanted his fine weapons and comfortable rooms and the simple pleasure of knowing that, when he reached an inn at the end of a long journey, he could pay for the best room they had without looking at the price.
+Not because he feared becoming a monster. Fear had never served him. He simply refused to surrender the life he had built—the freedom, the coin, the fine weapons, the comfortable rooms, and the pleasure of never checking an inn’s prices.
 
 He wanted his life back.
 
-Behind him, somewhere upon the road he had taken, another rider would eventually find the trail.
+He wanted his life back.
 
-He knew who that rider would be.
-
-One of the Moonwardens.
-
-Someone trained in the same halls, beneath the same moon, by the same masters who had trained him. Someone who knew how he thought, how he traveled, how he concealed his tracks, and how he would respond when hunted.
-
-Someone who understood that the man fleeing into the wilderness was not merely a cursed cleric.
-
-He was a Moonwarden.
-
-And he had been trained from birth to survive the hunt.
+Behind him, another rider would eventually find his trail. Bastian knew who it would be: a Moonwarden trained in the same halls, by the same masters, to think like him, track him, and hunt him.
+The man fleeing into the wilderness was not merely a cursed cleric. He was a Moonwarden and he had been trained to survive the hunt.
 
 Bastian had never imagined that, one day, he would be the one leaving the city with a hunter behind him. Yet there was little point in pretending otherwise. The order would come for him eventually, and he knew better than most what that meant. Whoever received the assignment would follow the same principles Bastian himself had followed for years: learn the habits of the quarry, determine where it was likely to go, discover what it needed, and wait until the moment when the trail could no longer be denied. The thought did not frighten him nearly as much as it might have frightened another man. It was simply another problem to be solved, and for the moment there was a more immediate one.
 
@@ -166,47 +147,15 @@ Bastian did not need rumors of witches. He needed a connection between those rum
 
 He eventually found the first useful piece of information in a town whose name he had already forgotten by the time he left it. He had spent the afternoon helping a merchant recover a stolen pack mule, and the reward had been generous enough to secure a good room and a better supper. He was finishing his meal when two men at the next table began arguing about a road farther north. One insisted that a caravan had been attacked by bandits, while the other maintained that bandits had nothing to do with it.
 
-Bastian paid little attention until the second man mentioned the bodies.
-
-"There were three of them," the man said. "All dead before anyone reached the wagon."
-
-"And the guards?"
-
-"Dead too."
-
-"Then it was bandits."
-
-"Bandits leave tracks."
-
-The first man stared at him. "What are you talking about?"
-
-"I am saying there weren't any."
+Bastian barely listened until the second man mentioned the bodies. Three were found dead before anyone reached the wagon, the guards among them. “Bandits,” someone said. “Bandits leave tracks,” Bastian replied. There weren’t any.
 
 That was enough to draw Bastian's attention. He waited until the argument had quieted before asking what had happened. The second man seemed pleased to have another listener and explained that the caravan had been found on the northern road several weeks earlier. The horses were still alive, though badly frightened, and the wagons had not been robbed. Nothing of value had been taken. The dead men had simply been left where they fell, and one of the caravan guards was missing.
 
-"Did they find him?" Bastian asked.
-
-The man shook his head. "Not then."
-
-"Later?"
-
-The answer took longer.
-
-"He came home."
-
-Bastian studied him.
-
-"His family said he did."
+“Did they find him?” Bastian asked. The man shook his head. “Not then.” After a pause, he added, “He came home.” Bastian studied him. “His family said he did.”
 
 The man leaned closer, lowering his voice. "His wife swore it was him. Same face, same voice, same clothes. But she wouldn't let him inside the house."
 
-"Why?"
-
-"Because she said something was wrong."
-
-Bastian did not ask what.
-
-He had heard enough.
+When asked why he was traveling north, Bastian simply said, “It’s the answer I have.” The woman warned him that the marsh wasn’t worth visiting and that he would find nothing there. “Most places aren’t,” he replied. “Perhaps.”
 
 The man's companion muttered that the whole story was nonsense, but Bastian was no longer listening to the argument. There was something about the account that disturbed him, not because it proved anything, but because it reminded him of the aftermath in Baldur's Gate. The curse did not behave as it should. It changed things. It left people unable to recognize what had once been familiar.
 
