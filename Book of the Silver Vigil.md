@@ -118,8 +118,6 @@ Not because he feared becoming a monster. Fear had never served him. He simply r
 
 He wanted his life back.
 
-He wanted his life back.
-
 Behind him, another rider would eventually find his trail. Bastian knew who it would be: a Moonwarden trained in the same halls, by the same masters, to think like him, track him, and hunt him.
 The man fleeing into the wilderness was not merely a cursed cleric. He was a Moonwarden and he had been trained to survive the hunt.
 
