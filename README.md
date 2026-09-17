@@ -1,62 +1,67 @@
-<h1 align="center">📜 Sanctuary of <a href="https://yourwebsite.com" target="_blank">Your Name</a> 🎲</h1>
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=YOUR-GITHUB-USERNAME&color=critical&style=flat-square" alt="Adventurers Visited" />
-  <img src="https://img.shields.io/badge/Class-Full_Stack_Artificer-red?style=flat-square" alt="Class" />
-  <img src="https://img.shields.io/badge/Alignment-Chaotic_Good-blue?style=flat-square" alt="Alignment" />
-</p>
+<div align="center">
 
-<p align="center">
-  <i>"You step into a dimly lit chamber. Runes of glowing code pulse along the stone walls, and a quiet hum of arcane energy emanates from the terminal before you."</i><br>
-  📫 Summon me via <b>your.email@example.com</b> or commune on <a href="https://linkedin.com/in/your-profile" target="_blank">LinkedIn</a>.
+# ✧ [YOUR NAME] ✧
+### *Software Engineer & System Architect*
+
+<p>
+  <code>[ STATS ]</code> &nbsp;&bull;&nbsp; 
+  <code>[ TECH STACK ]</code> &nbsp;&bull;&nbsp; 
+  <code>[ ARTIFACTS ]</code>
 </p>
 
 ---
 
-## 🛡️ Character Stats & Attributes
+</div>
 
-<table align="center">
+<br>
+
+<table>
   <tr>
-    <td align="center"><b>STR</b> (Code Quality)<br>18 (+4)</td>
-    <td align="center"><b>DEX</b> (Deployment Speed)<br>16 (+3)</td>
-    <td align="center"><b>CON</b> (Uptime/Resilience)<br>20 (+5)</td>
-  </tr>
-  <tr>
-    <td align="center"><b>INT</b> (Architecture)<br>19 (+4)</td>
-    <td align="center"><b>WIS</b> (Debugging)<br>17 (+3)</td>
-    <td align="center"><b>CHA</b> (UI / UX Design)<br>15 (+2)</td>
+    <td width="50%" align="center">
+      <h3>⚔️ Core Proficiency</h3>
+      <br>
+      <img src="https://skillicons.dev/icons?i=js,ts,react,nextjs,nodejs,python,tailwind,git,github,docker,vscode&perline=4" />
+    </td>
+    <td width="50%" align="center">
+      <h3>🛡️ Attributes</h3>
+      <br>
+      <table>
+        <tr><td><b>STR</b> (Core Logic)</td><td>18 / 20</td></tr>
+        <tr><td><b>DEX</b> (Execution)</td><td>16 / 20</td></tr>
+        <tr><td><b>INT</b> (Architecture)</td><td>19 / 20</td></tr>
+        <tr><td><b>WIS</b> (Debugging)</td><td>17 / 20</td></tr>
+      </table>
+    </td>
   </tr>
 </table>
 
----
+<br>
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=YOUR-GITHUB-USERNAME&show_icons=true&theme=vision-friendly-dark&hide_border=true&count_private=true" width="100%" />
+</div>
 
-## 🎒 Inventory & Magical Artifacts (Tech Stack)
+<br>
+<div align="center">
 
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=js,ts,react,nextjs,nodejs,python,tailwind,git,github,docker,vscode&perline=6" />
-</p>
+### 🏛️ Featured Archives
 
----
+</div>
 
-## 📊 Grimoire of Feats (GitHub Metrics)
+<br>
 
-<p align="center">
-  <img height="180px" src="https://github-readme-stats.vercel.app/api?username=YOUR-GITHUB-USERNAME&show_icons=true&theme=vision-friendly-dark&hide_border=true&count_private=true" />
-  <img height="180px" src="https://github-readme-streak-stats.herokuapp.com/?user=YOUR-GITHUB-USERNAME&theme=vision-friendly-dark&hide_border=true" />
-</p>
+| Artifact | Description | Direct Link |
+| :--- | :--- | :---: |
+| **Project Tome I** | High-performance full-stack data manager built with resilient architecture. | [View Repository](https://github.com/YOUR-GITHUB-USERNAME/project-one) |
+| **Automation Scroll** | Command-line utility designed to optimize local workflows. | [View Repository](https://github.com/YOUR-GITHUB-USERNAME/project-two) |
+| **Relic Framework** | Open-source contribution focused on modular design systems. | [View Repository](https://github.com/YOUR-GITHUB-USERNAME/project-three) |
 
----
-
-## 🗺️ Legendary Quests (Featured Repositories)
-
-* **[Quest I: The Tome of Holding](https://github.com/YOUR-GITHUB-USERNAME/project-one)** — A robust web app crafted to manage heavy data loads, built with resilient spells and a clean layout.
-* **[Quest II: Scroll of Automation](https://github.com/YOUR-GITHUB-USERNAME/project-two)** — A command-line utility designed to banish repetitive chores and streamline workflows.
-* **[Quest III: Relic of the Ancients](https://github.com/YOUR-GITHUB-USERNAME/project-three)** — An open-source contribution forged in collaboration with fellow adventurers across the realm.
+<br>
+<div align="center">
 
 ---
+<small><i>System secure. All nodes operational.</i></small>
 
-<p align="center">
-  <i>🎲 "Roll for initiative... success! The compiler passes without a single trap triggered."</i>
-</p>
+</div>
 
 # Tarot
 
