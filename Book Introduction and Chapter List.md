@@ -1,103 +1,103 @@
 # The Silver Vigil
 
+> *The moon is a fickle master. To the faithful, she is the silver-handed mother who guides travelers through the dark and banishes the things that crawl beneath her light. To the Moonwardens, she is a clock, a judge, and a relentless reminder of what happens when the boundary between man and beast wears thin.*
+
+---
+
 ## Introduction
 
-Bastian has spent his entire life serving the Temple of the Silver Vigil in Baldur's Gate. To the world, he is a wandering cleric and adventurer. In truth, he is a Moonwarden, one of a secretive order of hunters trained to track and destroy werewolves, witches, and other threats that hide behind familiar faces.
+In the sprawling, shadowed alleys of Baldur's Gate, the Temple of the Silver Vigil stands as an unyielding bulwark against the night. For generations, the Moonwardens of the temple have walked the unseen line between civilization and the wild, hunting down curses, lycanthropes, and those who dare trade their humanity for the power of the dark. They are trained from childhood in the art of the stalk, bound by strict discipline, and armed to survive the worst the dark has to offer.
 
-He has never regretted the life he was given. The work is dangerous, but it has given him purpose, independence, and the means to enjoy the finer things in life. He has good weapons, good armor, and no objection to spending his hard-earned coin on a comfortable room and a decent meal.
+Bastian was one of their best. 
 
-Then a witch places a curse upon him that the priests of the Silver Vigil cannot remove. The curse does more than change his body. It turns the hunter into something his own order cannot safely control, and the terrible aftermath forces the temple to exile him from the only home he has ever known.
+A seasoned hunter and a cleric of Selûne, Bastian understood the trade better than most. He knew the value of a fine blade, a warm meal, and the quiet satisfaction of a job well done—because he also knew how quickly the night could claim you if you weren't prepared. He had hunted dozens of cursed souls before, always returning to the safety of the temple walls.
 
-Bastian does not accept exile as the end of his life. He intends to find the witches responsible, discover how their curse can be broken, and return to the Silver Vigil. He knows, however, that the order cannot simply allow him to remain at large. Sooner or later, another Moonwarden will be sent to hunt him.
+Until the night of the coven. 
 
-While Bastian follows the scattered trail toward the witches who may hold the answer, he will encounter people whose purposes are not immediately clear, including Nalara, a moon elf druid of the Circle of the Moon. She has her own reasons for seeking him, and Bastian will have to decide how much of what she tells him he can trust.
+Struck by a witch's spiteful magic, Bastian was infected with a corrupted strain of lycanthropy—a twisted curse that even the sacred rites of the Silver Vigil could not contain. When the beast broke free within the city streets, the blood it spilled could not be unspilled. Finding him beyond redemption by ordinary means, his own order handed down the only sentence they could: **exile**.
 
-The road ahead will take Bastian far from Baldur's Gate. Along the way, he will follow false leads, uncover pieces of a larger mystery, form alliances he did not expect, and discover that the curse—and the people connected to it—may be more complicated than he first believed.
+Now, stripped of his sanctuary and hunted by the very brothers who raised him, Bastian must ride into the wild unknown. He is not running out of fear; he is running to survive. Armed with his training, his steel, and a desperate determination to reclaim the life he built, he seeks a coven of witches rumored to hold the key to an impossible cure. 
 
-All the while, the hunt behind him will continue.
+The hunt has begun. But this time, the hunter is the prey.
 
 ---
 
 ## Working Chapter List
 
-> **Note:** This is the current working structure for the novel. Chapter titles and the exact division of events can change as the story develops.
+### Act I: The Fall and the Trail
 
-### Chapter One — The Silver Vigil
-
+#### Chapter One — The Silver Vigil
 The aftermath in Baldur's Gate. Bastian's life as a Moonwarden, the witch's curse, the failed cleansing, his exile, and the beginning of his search for a way to break the curse.
 
-### Chapter Two — The Northern Road
+#### Chapter Two — The Northern Road
+Bastian follows the first useful lead away from Baldur's Gate, investigating reports tied to the strange curse and realizing someone else has been asking similar questions.
 
-Bastian follows the first useful lead away from Baldur's Gate and begins investigating reports that may have a connection to the strange curse. His investigation draws the attention of someone who has been asking similar questions.
+#### Chapter Three — The Marsh Road
+The trail leads into isolated country. Bastian encounters conflicting accounts of witches, disappearances, and travelers who returned changed.
 
-### Chapter Three — The Marsh Road
+#### Chapter Four — The Woman in the Wood
+Bastian encounters Nalara. Their meeting is born from circumstance, and neither immediately trusts the other. Nalara's knowledge is useful, but her guarded nature raises questions.
 
-The trail leads into more isolated country. Bastian encounters conflicting accounts of witches, disappearances, and travelers who returned changed. What appears to be a promising lead proves less straightforward than expected.
+---
 
-### Chapter Four — The Woman in the Wood
+### Act II: Convergence and Pursuit
 
-Bastian encounters Nalara. Their meeting is born from circumstance rather than destiny, and neither immediately understands what the other wants. Nalara's knowledge proves useful, but some of her questions leave Bastian wondering how much she already knows.
+#### Chapter Five — Two Trails
+Bastian and Nalara's paths cross, giving them mutual reason to travel together. The first tangible sign that a Moonwarden is tracking Bastian appears.
 
-### Chapter Five — Two Trails
+#### Chapter Six — The False Lead
+A promising trail leads somewhere unexpected, forcing Bastian to realize several incidents are connected. Nalara's true purpose begins to surface.
 
-Bastian and Nalara's paths continue to cross. Their goals are not identical, but circumstances give them reason to travel in the same direction. Meanwhile, the first signs that a Moonwarden is following Bastian begin to appear.
+#### Chapter Seven — The Hunter Close Behind
+The pursuit intensifies. The hunter is not a faceless threat, but a former peer trained in the exact same traditions, turning the journey into a deadly game of cat-and-mouse.
 
-### Chapter Six — The False Lead
+#### Chapter Eight — Old Roads & Narrow Escapes
+Forced to move faster to stay ahead of the hunter, Bastian and Nalara rely on each other more, though Bastian remains wary of Nalara's secrets.
 
-A promising trail points toward the witches but ultimately leads somewhere else. Bastian begins to realize that several seemingly unrelated incidents may be connected, while Nalara's own purpose becomes harder for him to ignore.
+---
 
-### Chapter Seven — The Hunter
+### Act III: Unraveling the Web
 
-The Moonwarden pursuing Bastian closes the distance. The hunter is not a faceless threat but someone shaped by the same order, traditions, and training that shaped Bastian himself.
+#### Chapter Nine — The Broken Circle
+Evidence reveals a wider network of old magic and curses. Bastian realizes the witch who cursed him did not act alone—and may have had outside help.
 
-### Chapter Eight — Old Roads
+#### Chapter Ten — The Price of Answers
+Bastian must choose between an opportunity to learn more about the curse and the safety of Nalara, a choice that permanently shifts the dynamic between them.
 
-Bastian and Nalara leave the immediate region and follow a new lead. Their growing familiarity brings moments of trust and attraction, even as Bastian remains wary of the things Nalara refuses to explain.
+#### Chapter Eleven — The Long Hunt
+The Moonwarden hunter forces a near-confrontation, pushing Bastian to his limits while questions about Nalara's past demand answers.
 
-### Chapter Nine — The Broken Circle
+#### Chapter Twelve — Beneath the Moon
+A quiet moment of vulnerability. The contrast between Nalara's natural mastery of transformation and the unnatural, violent curse within Bastian deepens their bond.
 
-The investigation uncovers evidence of a wider network involving curses, disappearances, and old magic. Bastian begins to understand that the witch who cursed him may not have acted entirely alone.
+---
 
-### Chapter Ten — The Price of Answers
+### Act IV: Secrets and Revelations
 
-Bastian is forced to choose between an opportunity to learn more about the curse and the safety of someone who has become important to him. The choice changes the direction of the journey.
+#### Chapter Thirteen — What Was Hidden
+Pieces of the truth click into place. Old clues take on new meaning as Nalara's reasons for seeking the coven are finally laid bare.
 
-### Chapter Eleven — The Long Hunt
+#### Chapter Fourteen — The Unraveling
+Trust is tested when past secrets come to light. Bastian must determine which betrayals are real and what must be forgiven before they reach their destination.
 
-The pursuit by the Moonwardens becomes more immediate. Bastian must contend with a hunter who understands his methods almost as well as he does, while continuing to question whether Nalara has told him everything she knows.
+#### Chapter Fifteen — Beyond the Old Ruins
+Crossing into dangerous, forgotten territory where the witches hide, with the Moonwarden hunter right on their heels.
 
-### Chapter Twelve — Beneath the Moon
+#### Chapter Sixteen — The Coven
+Confronting the witches. The answers Bastian finds are far more complex than a simple cure, revealing the true nature of the magic in his blood.
 
-Bastian and Nalara's relationship deepens. The contrast between her natural mastery of transformation and the unnatural curse within Bastian becomes increasingly important to both of them.
+---
 
-### Chapter Thirteen — What Was Hidden
+### Act V: Resolution and Return
 
-Pieces of the truth begin to surface. Information Bastian once considered unrelated takes on new meaning, and the reasons behind Nalara's search become harder to conceal.
+#### Chapter Seventeen — The Silver Hunt
+The inevitable collision with the Moonwardens. Bastian must face his past order while deciding what he is truly willing to fight for.
 
-### Chapter Fourteen — The Unraveling
+#### Chapter Eighteen — The Curse Broken
+The curse reaches its resolution, but the scars remain. Breaking it does not automatically restore his old life.
 
-Secrets begin to come apart. Bastian must determine which betrayals are real, which are misunderstandings, and what Nalara has been unable—or unwilling—to tell him.
+#### Chapter Nineteen — The Road Home
+The journey back toward Baldur's Gate gives Bastian time to weigh who he has become against who he used to be.
 
-### Chapter Fifteen — Beyond the Old Ruins
-
-The trail finally points toward the distant territory where the witches have been hiding. Reaching them requires Bastian and Nalara to cross dangerous country while the Moonwarden hunt continues behind them.
-
-### Chapter Sixteen — The Coven
-
-Bastian reaches the witches responsible for the curse. The answers he finds are not the simple solution he expected, and the true nature of what was done to him is finally brought into the open.
-
-### Chapter Seventeen — The Silver Hunt
-
-The conflict between Bastian and the Moonwardens reaches its inevitable confrontation. Bastian must face someone from the life he is determined to reclaim while deciding what, if anything, can still be saved.
-
-### Chapter Eighteen — The Curse Broken
-
-The curse reaches its resolution, but breaking it does not erase everything that happened along the way. Bastian must decide what returning to the Silver Vigil would actually mean after everything he has learned.
-
-### Chapter Nineteen — The Road Home
-
-Bastian begins the journey back toward Baldur's Gate. The road gives him time to consider what he wants, what has changed, and whether the life he left behind can truly be recovered.
-
-### Chapter Twenty — The Silver Vigil
-
-The story returns to the Temple of the Silver Vigil. Bastian faces the order, his family, and the consequences of his return. The final revelations bring the larger meaning of his journey into focus.
+#### Chapter Twenty — The Silver Vigil
+Returning to the temple. Bastian faces the order, his family, and the ultimate consequences of his exile, bringing his journey full circle.
