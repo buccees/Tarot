@@ -22,82 +22,81 @@ The hunt has begun. But this time, the hunter is the prey.
 
 ---
 
-## Working Chapter List
+## Chapter List
 
-### Act I: The Fall and the Trail
+# *THE SILVER VIGIL*
 
-#### Chapter One — The Silver Vigil
-The aftermath in Baldur's Gate. Bastian's life as a Moonwarden, the witch's curse, the failed cleansing, his exile, and the beginning of his search for a way to break the curse.
-
-#### Chapter Two — The Northern Road
-Bastian follows the first useful lead away from Baldur's Gate, investigating reports tied to the strange curse and realizing someone else has been asking similar questions.
-
-#### Chapter Three — The Marsh Road
-The trail leads into isolated country. Bastian encounters conflicting accounts of witches, disappearances, and travelers who returned changed.
-
-#### Chapter Four — The Woman in the Wood
-Bastian encounters Nalara. Their meeting is born from circumstance, and neither immediately trusts the other. Nalara's knowledge is useful, but her guarded nature raises questions.
+## Front Matter: Core Mechanics & Prop Integration
+* **The Deck:** Explanation of how physical cards (standard playing cards, custom tarot, or rune cards) map to narrative outcomes.
+* **Universal Resolution Rule:** Every chapter follows the three-phase loop: **The Initial Choice** (Direct, Subtlety, or Mystic) $\rightarrow$ **The Card Resolution** (Triumph, Complication, or Reversal) $\rightarrow$ **The Fork** (Main Path, Ascendant Skip, or Divergent Detour).
 
 ---
 
-### Act II: Convergence and Pursuit
+## The Chapter Framework (Nodes 01 – 20)
 
-#### Chapter Five — Two Trails
-Bastian and Nalara's paths cross, giving them mutual reason to travel together. The first tangible sign that a Moonwarden is tracking Bastian appears.
+### Act I: The Flight from the Spire
+* **Chapter 01: The Fractured Watch**
+  * *Objective:* Escape the immediate perimeter of the citadel after the decree of exile.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 02 (Clean Escape); Complication $\rightarrow$ Chapter 02A (Pursued by Inquisitors); Reversal $\rightarrow$ Chapter 02B (Trapped in the Lower Ward).
+* **Chapter 02: Downpour in the Outskirts**
+  * *Objective:* Navigate the muddy frontier settlements before nightfall.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 03; Complication $\rightarrow$ Chapter 03A (Equipment Damaged); Reversal $\rightarrow$ Chapter 03B (Ambushed by Scavengers).
+* **Chapter 03: The Toll Bridge**
+  * *Objective:* Cross the border checkpoint without alerting the garrison.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 04; Complication $\rightarrow$ Chapter 04A (Bribe Required); Reversal $\rightarrow$ Chapter 04B (Detained & Escaped).
+* **Chapter 04: Whispers in the Treeline**
+  * *Objective:* Establish a safe camp in the encroaching wilderness.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 05 (Rested); Complication $\rightarrow$ Chapter 05A (Restless Sleep/Curse Flare); Reversal $\rightarrow$ Chapter 05B (Forced Night March).
+* **Chapter 05: The Abandoned Post**
+  * *Objective:* Investigate a ruined Moonwarden outpost for supplies or lore.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 06 (Relic Acquired); Complication $\rightarrow$ Chapter 06A (Trap Sprung); Reversal $\rightarrow$ Chapter 06B (Haunted Isolation).
 
-#### Chapter Six — The False Lead
-A promising trail leads somewhere unexpected, forcing Bastian to realize several incidents are connected. Nalara's true purpose begins to surface.
+### Act II: The Road to the Lowlands
+* **Chapter 06: Crossing the Grey Ridge**
+  * *Objective:* Traverse a treacherous mountain pass under heavy weather.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 07; Complication $\rightarrow$ Chapter 07A (Exhaustion Penalty); Reversal $\rightarrow$ Chapter 07B (Avalanche/Rockslide Detour).
+* **Chapter 07: The Smoke of a Foreign Camp**
+  * *Objective:* Decide whether to interact with travelers or bypass them entirely.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 08 (Allies Found); Complication $\rightarrow$ Chapter 08A (Tense Standoff); Reversal $\rightarrow$ Chapter 08B (Robbed in the Dark).
+* **Chapter 08: The River Crossing**
+  * *Objective:* Find a way across a swollen, fast-moving river.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 09; Complication $\rightarrow$ Chapter 09A (Gear Lost Downstream); Reversal $\rightarrow$ Chapter 09B (Washed Ashore Elsewhere).
+* **Chapter 09: Echoes of the Order**
+  * *Objective:* Encounter signs of other exiled wardens or conflicting factions.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 10 (Valuable Intel); Complication $\rightarrow$ Chapter 10A (Misleading Clues); Reversal $\rightarrow$ Chapter 10B (Inquisitor Trail Hotter).
+* **Chapter 10: The Shrouded Valley**
+  * *Objective:* Navigate a dense, magically suppressed valley that distorts navigation.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 11 (Ascendant Skip to Chapter 12); Complication $\rightarrow$ Chapter 11A; Reversal $\rightarrow$ Chapter 11B (Lost in the Mists).
 
-#### Chapter Seven — The Hunter Close Behind
-The pursuit intensifies. The hunter is not a faceless threat, but a former peer trained in the exact same traditions, turning the journey into a deadly game of cat-and-mouse.
+### Act III: Convergence and Confrontation
+* **Chapter 11: The Border Town**
+  * *Objective:* Secure provisions and blend into a crowded civilian settlement.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 12; Complication $\rightarrow$ Chapter 12A (Recognized); Reversal $\rightarrow$ Chapter 12B (Street Fight).
+* **Chapter 12: The Hidden Shrine**
+  * *Objective:* Locate a dormant sanctuary linked to Bastian's past.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 13; Complication $\rightarrow$ Chapter 13A (Sealed Door Puzzle); Reversal $\rightarrow$ Chapter 13B (Sanctuary Defiled).
+* **Chapter 13: Night of the Eclipse**
+  * *Objective:* Survive a lunar event that supercharges ambient magic and danger.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 14; Complication $\rightarrow$ Chapter 14A (Internal Corruption Spike); Reversal $\rightarrow$ Chapter 14B (Feral Flight).
+* **Chapter 14: The Pursuer Closes In**
+  * *Objective:* Set an ambush or evade an elite tracker sent after Bastian.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 15 (Tracker Neutralized); Complication $\rightarrow$ Chapter 15A (Wounded in Skirmish); Reversal $\rightarrow$ Chapter 15B (Captured & Escaped with Losses).
+* **Chapter 15: The Crossroads of Fate**
+  * *Objective:* Make a pivotal choice regarding your ultimate destination.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 16 (Path of Power); Complication $\rightarrow$ Chapter 16A (Path of Secrecy); Reversal $\rightarrow$ Chapter 16B (Path of Retribution).
 
-#### Chapter Eight — Old Roads & Narrow Escapes
-Forced to move faster to stay ahead of the hunter, Bastian and Nalara rely on each other more, though Bastian remains wary of Nalara's secrets.
-
----
-
-### Act III: Unraveling the Web
-
-#### Chapter Nine — The Broken Circle
-Evidence reveals a wider network of old magic and curses. Bastian realizes the witch who cursed him did not act alone—and may have had outside help.
-
-#### Chapter Ten — The Price of Answers
-Bastian must choose between an opportunity to learn more about the curse and the safety of Nalara, a choice that permanently shifts the dynamic between them.
-
-#### Chapter Eleven — The Long Hunt
-The Moonwarden hunter forces a near-confrontation, pushing Bastian to his limits while questions about Nalara's past demand answers.
-
-#### Chapter Twelve — Beneath the Moon
-A quiet moment of vulnerability. The contrast between Nalara's natural mastery of transformation and the unnatural, violent curse within Bastian deepens their bond.
-
----
-
-### Act IV: Secrets and Revelations
-
-#### Chapter Thirteen — What Was Hidden
-Pieces of the truth click into place. Old clues take on new meaning as Nalara's reasons for seeking the coven are finally laid bare.
-
-#### Chapter Fourteen — The Unraveling
-Trust is tested when past secrets come to light. Bastian must determine which betrayals are real and what must be forgiven before they reach their destination.
-
-#### Chapter Fifteen — Beyond the Old Ruins
-Crossing into dangerous, forgotten territory where the witches hide, with the Moonwarden hunter right on their heels.
-
-#### Chapter Sixteen — The Coven
-Confronting the witches. The answers Bastian finds are far more complex than a simple cure, revealing the true nature of the magic in his blood.
-
----
-
-### Act V: Resolution and Return
-
-#### Chapter Seventeen — The Silver Hunt
-The inevitable collision with the Moonwardens. Bastian must face his past order while deciding what he is truly willing to fight for.
-
-#### Chapter Eighteen — The Curse Broken
-The curse reaches its resolution, but the scars remain. Breaking it does not automatically restore his old life.
-
-#### Chapter Nineteen — The Road Home
-The journey back toward Baldur's Gate gives Bastian time to weigh who he has become against who he used to be.
-
-#### Chapter Twenty — The Silver Vigil
-Returning to the temple. Bastian faces the order, his family, and the ultimate consequences of his exile, bringing his journey full circle.
+### Act IV: The Final Ascent
+* **Chapter 16: Scaling the Ridge of Sighs**
+  * *Objective:* Ascend toward the final confrontation site.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 17; Complication $\rightarrow$ Chapter 17A; Reversal $\rightarrow$ Chapter 17B (Treacherous Climb).
+* **Chapter 17: The Inner Sanctum Threshold**
+  * *Objective:* Breach the protective wards guarding the core location.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 18; Complication $\rightarrow$ Chapter 18A (Ward Backlash); Reversal $\rightarrow$ Chapter 18B (Alternative Entrance Found).
+* **Chapter 18: Facing the Shadow**
+  * *Objective:* Confront the primary source of the corruption/exile order.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 19 (Dominant Position); Complication $\rightarrow$ Chapter 19A (Stalemate/Priceless Sacrifice); Reversal $\rightarrow$ Chapter 19B (Overwhelmed).
+* **Chapter 19: The Breaking Point**
+  * *Objective:* Execute the final card check determining Bastian's fate.
+  * *Branching Triggers:* Triumph $\rightarrow$ Chapter 20A (The Redemption Ending); Complication $\rightarrow$ Chapter 20B (The Exile Eternal); Reversal $\rightarrow$ Chapter 20C (The Sacrifice).
+* **Chapter 20: The Final Vigil (Epilogue Nodes)**
+  * *Outcome:* Resolves the physical card state into the definitive ending node based on cumulative choices and final draws.
